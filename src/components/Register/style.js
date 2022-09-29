@@ -1,0 +1,138 @@
+import styled from 'styled-components';
+
+const RegisterContainer = styled.form`
+    width: 90vw;
+    max-width: 510px;
+    padding: 20px 10px;
+    background-color: var(--background-black);
+    margin: 20px auto;
+
+    .register-form-access {
+        padding-top: 10px;
+        margin-bottom: 40px;
+        border-top: 1px solid #fff;
+        position: relative;
+    }
+
+    .register-form-access::before {
+        content: 'Acesso';
+        display: block;
+        padding: 5px 10px;
+        background-color: var(--background-black);
+        position: absolute;
+        top: -15px;
+        left: 20px;
+        color: #fff;
+    }
+
+    .register-form-header {
+        color: #fff;
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .register-form-input-container {
+        margin: 15px 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .register-form-label {
+        color: var(--text-red);
+        font-size: 20px;
+    }
+
+    .confirm-password-container {
+        flex-direction: column;
+    }
+
+    .confirm-password-label {
+        margin-bottom: 10px;
+    }
+    
+    .register-form-input {
+        font-size: 16px;
+        flex-grow: .6;
+        padding: 2px 5px;
+    }
+
+    .register-form-personal-container {
+        position: relative;
+        border-top: 1px solid #fff;
+        padding-top: 10px;
+    }
+
+    .register-form-personal-container::before {
+        content: 'Físico';
+        display: block;
+        padding: 5px 10px;
+        background-color: var(--background-black);
+        position: absolute;
+        top: -15px;
+        left: 20px;
+        color: #fff;
+    }
+
+    .register-form-gender-label {
+        font-family: 'Urbanist', sans-serif;
+        color: #fff;
+    }
+
+    .register-form-gender-input {
+        margin-right: 5px;
+    }
+
+    #gender-female {
+        margin-left: 15px;
+    }
+
+    .register-form-physical {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .register-form-physical-input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px 5px;
+    }
+
+    .register-form-physical-input-container input {
+        width: 80px;
+    }
+
+    @media only screen and (min-width: 350px) {
+        .register-form-physical {
+            justify-content: space-around;
+        }
+    }
+
+    @media only screen and (min-width: 480px) {
+        margin-top: 80px;
+
+        .register-form-passwords-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .password-container {
+            flex-direction: column;
+        }
+
+        .confirm-password-container, .password-container {
+            align-items: center;
+        }
+
+        .confirm-password-label {
+            margin-bottom: 0;
+        }
+
+        .gender-container {
+            justify-content: space-around;
+        }
+    }
+`;
+
+export default RegisterContainer;

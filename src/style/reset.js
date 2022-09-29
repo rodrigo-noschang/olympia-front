@@ -8,14 +8,14 @@ const GlobalStyle = createGlobalStyle`
         --text-font: 'Urbanist', sans-serif;
     }
 
-    h1, h2, h3, header, form, fieldset, input, label, section, p, div, ul, li, button {
+    h1, h2, h3, header, form, fieldset, input, label, section, p, div, ul, li, button, span {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-family: var(--text-font);
     }
 
-    h1, h2, h3, header, label, button {
+    h1, h2, h3, header, label, button, span {
         font-family: var(--title-font);
     }
 

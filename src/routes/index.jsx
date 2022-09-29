@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
-import Header from '../components/Header';
+import RegisterLogin from '../pages/RegisterLogin';
 
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route exact path = '/header' element = {<Header />}/>
+            <Route exact path = '/' element = {<RegisterLogin />}/>
         </Routes>
     )
 }
