@@ -8,6 +8,28 @@ const RegisterLogin  = () => {
     const [registerSuccess, setRegisterSuccess] = useState(false);
     const [registerFailMessage, setRegisterFailMessage] = useState(false);
     const [loginFailMessage, setLoginFailMessage] = useState(false);
+    const [showRegsiter, setShowRegister] = useState(true);
+    const [showLogin, setShowLogin] = useState(false);
+    const [animation, setAnimation] = useState(''); // Tells what animation to run (hide register or hide login)
+
+    const hideRegister = () => {
+        setShowLogin(true);
+        setAnimation('hide-register');
+        setTimeout(() => {
+            setShowRegister(false);
+            setAnimation('');
+        }, 1000)
+    }
+
+    const hideLogin = () => {
+        setShowRegister(true);
+        setAnimation('hide-login');
+        setTimeout(() => {
+            setShowLogin(false);
+            setAnimation('');
+        }, 1000)
+    }
+
 
     return (
         <RegisterLoginContainer>
@@ -40,8 +62,21 @@ const RegisterLogin  = () => {
             }
 
             <div className = 'register-login-container'>
-                {/* <Register setRegisterSuccess = {setRegisterSuccess} setRegisterFailMessage = {setRegisterFailMessage}/> */}
-                <Login setLoginFailMessage = {setLoginFailMessage}/>
+                { showRegsiter &&
+                    <Register setRegisterSuccess = {setRegisterSuccess} 
+                        setRegisterFailMessage = {setRegisterFailMessage}
+                        setLoginFailMessage = {setLoginFailMessage}
+                        hideRegister = {hideRegister}
+                        animation = {animation}/>
+                }
+
+                { showLogin &&
+                    <Login setLoginFailMessage = {setLoginFailMessage}
+                        setRegisterSuccess = {setRegisterSuccess} 
+                        setRegisterFailMessage = {setRegisterFailMessage}
+                        hideLogin = {hideLogin}
+                        animation = {animation}/>
+                }
             </div>
         </RegisterLoginContainer>
     )

@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../services/api";
 
-const Login = ({ setLoginFailMessage }) => {
+const Login = ({ setLoginFailMessage, setRegisterSuccess, setRegisterFailMessage, hideLogin, animation }) => {
     const loginSchema = yup.object().shape({
         email: yup.string().email('Esse campo deve ser um email').required('Informe seu email'),
         password: yup.string().required('Informe sua senha')
@@ -19,12 +19,14 @@ const Login = ({ setLoginFailMessage }) => {
                 localStorage.setItem('diet-buddy:token', res.data.token);
             })
             .catch(err => {
+                setRegisterFailMessage(false);
+                setRegisterSuccess(false);
                 setLoginFailMessage(err.response.data.msg);
             })
     }
 
     return (
-        <LoginContainer onSubmit = {handleSubmit(loginFn)}>
+        <LoginContainer onSubmit = {handleSubmit(loginFn)} animation = {animation}>
             <header className = 'login-header'> Login </header>
 
             <section className = 'login-inputs'>
@@ -61,6 +63,13 @@ const Login = ({ setLoginFailMessage }) => {
             </section>
 
             <button className = 'login-submit'> Login </button>
+
+            <div className = 'login-to-register'>
+                Não tem conta?
+                <span className = 'login-register-link' onClick = {hideLogin}> 
+                    Cadastre-se 
+                </span>
+            </div>
         </LoginContainer>
     )
 }

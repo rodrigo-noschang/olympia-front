@@ -1,12 +1,38 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const disappearToRight = keyframes`
+    from {
+        opacity: 1;
+        transform: translateX(-50%);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(300px);
+    }
+`;
+
+const appearFromRight = keyframes`
+    from {
+        opacity: 0;
+        transform: translateX(50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%);
+    }
+`;
 
 const LoginContainer = styled.form`
     width: 90vw;
     max-width: 510px;
     padding: 20px 10px;
     background-color: var(--background-black);
-    margin: 20px auto;
-
+    animation: ${props => props.animation === 'hide-login' ? disappearToRight : props.animation === 'hide-register' ? appearFromRight : ''};
+    animation-duration: 1s;
+    height: fit-content;
+    
     .login-header {
         color: #fff;
         font-size: 22px;
@@ -77,10 +103,28 @@ const LoginContainer = styled.form`
         color: #f3f3f3;
     }
 
-    @media only screen and (min-width: 570px) {
-        margin-top: 80px;
+    .login-to-register {
+        color: #f3f3f3;
+        text-align: center;
+        margin-top: 20px;
     }
 
+    .login-register-link {
+        font-family: var(--text-font);
+        font-weight: bold;
+        cursor: pointer;
+        border-bottom: 1px solid transparent;
+    }
+
+    .login-register-link:hover {
+        border-bottom-color: #FFF;
+        color: #FFF;
+        transition: .3s;
+    }
+
+    .login-register-link:active {
+        color: var(--background-black);
+    }
 `;
 
 export default LoginContainer;

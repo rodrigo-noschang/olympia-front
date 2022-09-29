@@ -41,6 +41,17 @@ const RegisterLoginContainer = styled.div`
         right: 15px;
     }
 
+    .register-login-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    @media only screen and (min-width: 570px) {
+        .register-login-container {
+            margin-top: 80px;
+        }
+    }
 
 `;
 

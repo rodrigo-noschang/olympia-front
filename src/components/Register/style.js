@@ -1,11 +1,37 @@
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
+
+const disappearToLeft = keyframes`
+    from {
+        opacity: 1;
+        transform: translateX(50%);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-300px);
+    }
+`;
+
+const appearFromLeft = keyframes`
+    from {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(50%);
+    }
+
+`;
 
 const RegisterContainer = styled.form`
     width: 90vw;
     max-width: 510px;
     padding: 20px 10px;
     background-color: var(--background-black);
-    margin: 20px auto;
+    animation: ${props => props.animation === 'hide-register' ? disappearToLeft : props.animation === 'hide-login' ? appearFromLeft : ''};
+    animation-duration: 1s;
 
     .register-form-access {
         padding-top: 10px;
@@ -146,6 +172,30 @@ const RegisterContainer = styled.form`
         margin-left: 15px;
     }
 
+    .register-form-to-login {
+        color: #f3f3f3;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .register-form-login-link {
+        font-family: var(--text-font);
+        font-weight: bold;
+        cursor: pointer;
+        border-bottom: 1px solid transparent;
+        margin-left: 10px;
+    }
+
+    .register-form-login-link:hover {
+        border-bottom-color: #FFF;
+        color: #FFF;
+        transition: .3s;
+    }
+
+    .register-form-login-link:active {
+        color: var(--background-black);
+    }
+
     @media only screen and (min-width: 350px) {
         .register-form-physical {
             justify-content: space-around;
@@ -153,8 +203,6 @@ const RegisterContainer = styled.form`
     }
 
     @media only screen and (min-width: 480px) {
-        margin-top: 80px;
-
         .register-form-passwords-container {
             display: flex;
             justify-content: space-between;
