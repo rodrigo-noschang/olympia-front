@@ -126,6 +126,8 @@ const RegisterContainer = styled.form`
         color: var(--text-red);
         box-shadow: 0 0 3px 1px #FFF;
         cursor: pointer;
+        display: flex;
+        align-items: center;
     }
 
     .register-form-register:hover {
@@ -138,6 +140,10 @@ const RegisterContainer = styled.form`
         box-shadow: 0 0 8px 1px #fff;
         background-color: var(--background-black);
         color: #f3f3f3;
+    }
+
+    .register-form-load {
+        margin-left: 15px;
     }
 
     @media only screen and (min-width: 350px) {

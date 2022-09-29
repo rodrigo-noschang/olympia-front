@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import api from "../../services/api";
+import ReactLoading from 'react-loading';
+import { useState } from "react";
 
-
-const Register = () => {
+const Register = ({ setRegisterSuccess, setRegisterFailMessage }) => {
+    const [loadRegsiter, setLoadRegister] = useState(false);
     const formSchema = yup.object().shape({
         name:            yup.string().required('Nome é obrigatório'),
         email:           yup.string().email('Informe um email válido').required('Email é obrigatório'),
@@ -22,18 +24,25 @@ const Register = () => {
     });
 
     const submitForm = (data) => {
+        setLoadRegister(true);
+        setRegisterFailMessage('')
+        setRegisterSuccess(false)
+
         const {confirmPassword, ...registerData} = data;
+        
         api.post('/user', registerData)
             .then(res => {
-                console.log(res);
+                setRegisterSuccess(true);
+                setLoadRegister(false);
             })
             .catch(err => {
-                console.log(err);
+                setRegisterFailMessage(err.response.data.msg);
+                setLoadRegister(false);
             })
     }
 
     return (
-        <RegisterContainer onSubmit={handleSubmit(submitForm)}>
+        <RegisterContainer onSubmit = {handleSubmit(submitForm)}>
             <header className = 'register-form-header'> Registre-se </header>
 
             <section className = 'register-form-access'>
@@ -184,7 +193,12 @@ const Register = () => {
                     </div>
                 </div>
             </section>
-            <button className = 'register-form-register'> Registrar </button>
+            <button className = 'register-form-register'> 
+                Registrar
+                { loadRegsiter &&
+                    <ReactLoading className = 'register-form-load' type = 'bars' color = '#E54E47' height = {25} width = {25}/> 
+                }
+            </button>
         </RegisterContainer>
     )
 }

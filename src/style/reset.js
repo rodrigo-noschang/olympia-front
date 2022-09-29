@@ -4,6 +4,8 @@ const GlobalStyle = createGlobalStyle`
     :root {
         --background-black: #302E31;
         --text-red: #E54E47;
+        --success-green: #a4cea4;
+        --fail-red: #e9aaaa;
         --title-font: 'Bangers', cursive;
         --text-font: 'Urbanist', sans-serif;
     }
