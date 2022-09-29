@@ -42,18 +42,30 @@ const RegisterContainer = styled.form`
         font-size: 20px;
     }
 
+    .register-form-input {
+        font-size: 16px;
+        flex-grow: .6;
+        padding: 2px 5px;
+    }
+
+    .register-form-error-message {
+        text-align: center;
+        color: red;
+        font-style: italic;
+        margin-top: -10px;
+        font-size: 14px;
+    }
+
+    .error-no-margin {
+        margin-top: 0;
+    }
+
     .confirm-password-container {
         flex-direction: column;
     }
 
     .confirm-password-label {
         margin-bottom: 10px;
-    }
-    
-    .register-form-input {
-        font-size: 16px;
-        flex-grow: .6;
-        padding: 2px 5px;
     }
 
     .register-form-personal-container {
@@ -101,6 +113,31 @@ const RegisterContainer = styled.form`
 
     .register-form-physical-input-container input {
         width: 80px;
+    }
+
+    .register-form-register {
+        padding: 5px 15px;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        display: block;
+        margin: 20px auto 0;
+        background-color: var(--background-black);
+        color: var(--text-red);
+        box-shadow: 0 0 3px 1px #FFF;
+        cursor: pointer;
+    }
+
+    .register-form-register:hover {
+        background-color: #f3f3f3;
+        color: var(--background-black);
+        transition: .3s;
+    }
+
+    .register-form-register:active {
+        box-shadow: 0 0 8px 1px #fff;
+        background-color: var(--background-black);
+        color: #f3f3f3;
     }
 
     @media only screen and (min-width: 350px) {

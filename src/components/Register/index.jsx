@@ -1,9 +1,39 @@
 import RegisterContainer from "./style"
+import { useForm } from "react-hook-form";
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import api from "../../services/api";
+
 
 const Register = () => {
+    const formSchema = yup.object().shape({
+        name:            yup.string().required('Nome é obrigatório'),
+        email:           yup.string().email('Informe um email válido').required('Email é obrigatório'),
+        password:        yup.string().required('Senha é obrigatório'),
+        confirmPassword: yup.string().required('Confirme sua senha').oneOf([yup.ref('password'), null], 'Senhas precisam ser iguais'),
+        gender:          yup.string().required('Informe seu gênero').min(1),
+        height:          yup.number().required(),
+        weight:          yup.number().required('Informe seu peso'),
+        age:             yup.number().required('Informe sua idade')
+    })
+
+    const { register, handleSubmit, formState: {errors} } = useForm({
+        resolver: yupResolver(formSchema)
+    });
+
+    const submitForm = (data) => {
+        const {confirmPassword, ...registerData} = data;
+        api.post('/user', registerData)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
     return (
-        <RegisterContainer>
+        <RegisterContainer onSubmit={handleSubmit(submitForm)}>
             <header className = 'register-form-header'> Registre-se </header>
 
             <section className = 'register-form-access'>
@@ -13,8 +43,14 @@ const Register = () => {
                     </label>
                     <input id = 'register-name' 
                         placeholder = 'Seu nome' 
-                        className = 'register-form-input'/>
+                        className = 'register-form-input'
+                        {...register('name')}/>
                 </div>
+                { errors.name &&
+                    <div className = 'register-form-error-message'>
+                        {errors.name.message}
+                    </div>
+                }
 
                 <div className = 'register-form-input-container'>
                     <label htmlFor = 'register-email' className = 'register-form-label'> 
@@ -22,28 +58,50 @@ const Register = () => {
                     </label>
                     <input id = 'register-email' 
                         placeholder = 'Seu email' 
-                        className = 'register-form-input'/>
+                        className = 'register-form-input'
+                        {...register('email')}/>
                 </div>
+                { errors.email &&
+                    <div className = 'register-form-error-message'>
+                        {errors.email.message}
+                    </div>
+                }
 
                 <div className = 'register-form-passwords-container'>
-                    <div className = 'register-form-input-container password-container'>
-                        <label htmlFor = 'register-password' className = 'register-form-label'>
-                                Senha 
-                        </label>
-                        <input id = 'register-password' 
-                            type = 'password'
-                            placeholder = 'Sua senha' 
-                            className = 'register-form-input'/>
+                    <div className = 'register-form-input-error-container'>
+                        <div className = 'register-form-input-container password-container'>
+                            <label htmlFor = 'register-password' className = 'register-form-label'>
+                                    Senha 
+                            </label>
+                            <input id = 'register-password' 
+                                type = 'password'
+                                placeholder = 'Sua senha' 
+                                className = 'register-form-input'
+                                {...register('password')}/>
+                        </div>
+                        { errors.password &&
+                            <div className = 'register-form-error-message'>
+                                {errors.password.message}
+                            </div>
+                        }
                     </div>
 
-                    <div className = 'register-form-input-container confirm-password-container'>
-                        <label htmlFor = 'register-confirm-password' className = 'register-form-label confirm-password-label'> 
-                            Confirme sua senha 
-                        </label>
-                        <input id = 'register-confirm-password' 
-                            type = 'password'
-                            placeholder = 'Confirme sua senha' 
-                            className = 'register-form-input'/>
+                    <div className = 'register-form-input-error-container'>
+                        <div className = 'register-form-input-container confirm-password-container'> 
+                            <label htmlFor = 'register-confirm-password' className = 'register-form-label confirm-password-label'> 
+                                Confirme sua senha 
+                            </label>
+                            <input id = 'register-confirm-password' 
+                                type = 'password'
+                                placeholder = 'Confirme sua senha' 
+                                className = 'register-form-input'
+                                {...register('confirmPassword')}/>
+                        </div>
+                        { errors.confirmPassword &&
+                            <div className = 'register-form-error-message'>
+                                {errors.confirmPassword.message}
+                            </div>
+                        }
                     </div>
                 </div>
             </section>
@@ -56,7 +114,8 @@ const Register = () => {
                             id = 'gender-male'
                             value = 'M'
                             name = 'gender-option'
-                            className = 'register-form-gender-input'/>
+                            className = 'register-form-gender-input'
+                            {...register('gender')}/>
                         <label htmlFor = 'gender-male' className = 'register-form-gender-label'> 
                             Masculino
                         </label>
@@ -65,10 +124,16 @@ const Register = () => {
                             id = 'gender-female'
                             value = 'F'
                             name = 'gender-option'
-                            className = 'register-form-gender-input'/>
+                            className = 'register-form-gender-input'
+                            {...register('gender')}/>
                         <label htmlFor = 'gender-female' className = 'register-form-gender-label'> 
                             Feminino 
                         </label>
+                        { errors.gender &&
+                            <div className = 'register-form-error-message error-no-margin'>
+                                Informe seu gênero
+                            </div>
+                        }
                     </div>
                 </div>
 
@@ -77,24 +142,49 @@ const Register = () => {
                         <label htmlFor = 'physical-height' className = 'register-form-label'>
                             Altura (cm)
                         </label>
-                        <input type="text" placeholder = 'Sua altura' id = 'physical-height'/>
+                        <input min = '0' type="number" 
+                            placeholder = 'Sua altura' 
+                            id = 'physical-height'
+                            {...register('height')}/>
+                        { errors.height &&
+                            <div className = 'register-form-error-message error-no-margin'>
+                                Informe sua altura
+                            </div>
+                        }
                     </div>
 
                     <div className = 'register-form-physical-input-container'>
                         <label htmlFor = 'physical-weight' className = 'register-form-label'>
                             Peso (Kg)
                         </label>
-                        <input type="text" placeholder = 'Seu peso' id = 'physical-weight'/>
+                        <input min = '0' type="number" 
+                            placeholder = 'Seu peso' 
+                            id = 'physical-weight'
+                            {...register('weight')}/>
+                        { errors.weight &&
+                            <div className = 'register-form-error-message error-no-margin'>
+                                Informe seu peso
+                            </div>
+                        }
                     </div>
 
                     <div className = 'register-form-physical-input-container'>
                         <label htmlFor = 'physical-age' className = 'register-form-label'>
                             Idade (anos)
                         </label>
-                        <input type="text" placeholder = 'Sua idade' id = 'physical-age'/>
+                        <input min = '0' type="number" 
+                            placeholder = 'Sua idade' 
+                            id = 'physical-age'
+                            {...register('age')}/>
+                        { errors.age &&
+                            <div className = 'register-form-error-message error-no-margin'>
+                                Informe seu peso
+                            </div>
+                        }
                     </div>
                 </div>
             </section>
+            <button className = 'register-form-register'> Registrar </button>
         </RegisterContainer>
     )
 }
