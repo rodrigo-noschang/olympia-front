@@ -3,8 +3,12 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
+import jwt_decode from 'jwt-decode'
 
 const Login = ({ setLoginFailMessage, setRegisterSuccess, setRegisterFailMessage, hideLogin, animation }) => {
+    const navigate = useNavigate();
+    
     const loginSchema = yup.object().shape({
         email: yup.string().email('Esse campo deve ser um email').required('Informe seu email'),
         password: yup.string().required('Informe sua senha')
@@ -16,7 +20,12 @@ const Login = ({ setLoginFailMessage, setRegisterSuccess, setRegisterFailMessage
     const loginFn = data => {
         api.post('/user/login', data)
             .then(res => {
-                localStorage.setItem('diet-buddy:token', res.data.token);
+                const token = res.data.token
+                localStorage.setItem('diet-buddy:token', token);
+
+                const decodedToken = jwt_decode(token);
+                navigate(`/dashboard/${decodedToken.user_id}`);
+                
             })
             .catch(err => {
                 setRegisterFailMessage(false);
