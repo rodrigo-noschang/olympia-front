@@ -46,6 +46,7 @@ const Login = ({ setLoginFailMessage, setRegisterSuccess, setRegisterFailMessage
                     <input className = 'login-input' 
                         id = 'login-email' 
                         placeholder = 'Seu email'
+                        autoFocus
                         {...register('email')}/>
                 </div>
                 {errors.email &&

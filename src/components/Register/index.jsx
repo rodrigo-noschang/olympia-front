@@ -56,6 +56,7 @@ const Register = ({ setRegisterSuccess, setRegisterFailMessage, setLoginFailMess
                     <input id = 'register-name' 
                         placeholder = 'Seu nome' 
                         className = 'register-form-input'
+                        autoFocus
                         {...register('name')}/>
                 </div>
                 { errors.name &&
