@@ -13,8 +13,12 @@ const DashboardContainer = styled.div`
 
     .dashboard-user-info-container {
         width: 90vw;
-        max-width: 1200px;
+        max-width: 1000px;
         margin: 35px auto 0;
+    }
+
+    .dashboard-table-container {
+        margin: 30px auto;
     }
 `;
 

@@ -1,6 +1,28 @@
+import { useState, useEffect } from "react"
 import UserInfoContainer from "./style"
 
 const UserInfo = ({ user }) => {
+    const [totalCarbs, setTotalCarbs] = useState(0);
+    const [totalProtein, setTotalProtein] = useState(0);
+    const [totalFat, setTotalFat] = useState(0);
+
+
+    useEffect(() => {
+        let carbs = 0;
+        let protein = 0;
+        let fat = 0;
+
+        for (let i = 0; i < user.foods.length; i++) {
+            carbs += user.foods[i].carbs;
+            protein += user.foods[i].protein;
+            fat += user.foods[i].fat;
+        }
+
+        setTotalCarbs(carbs);
+        setTotalProtein(protein);
+        setTotalFat(fat);
+    }, [])
+
 
     return (
         <UserInfoContainer>
@@ -11,15 +33,15 @@ const UserInfo = ({ user }) => {
             <section className = 'user-info-macros-container'>
                 <div className = 'user-info-macros carbs'> 
                     <span className = 'macros-name'> Carboidrato </span> 
-                    <span className = 'macros-value'> 0.40g/kg </span>
+                    <span className = 'macros-value'> {(totalCarbs / user.weight).toFixed(2)}g/kg </span>
                 </div>
                 <div className = 'user-info-macros protein'> 
                     <span className = 'macros-name'> Proteina </span>    
-                    <span className = 'macros-value'> 0.88g/kg </span>
+                    <span className = 'macros-value'> {(totalProtein / user.weight).toFixed(2)}g/kg </span>
                 </div>
                 <div className = 'user-info-macros fat'> 
                     <span className = 'macros-name'> Gordura </span>     
-                    <span className = 'macros-value'> 0.17g/kg </span>
+                    <span className = 'macros-value'> {(totalFat / user.weight).toFixed(2)}g/kg </span>
                 </div>
             </section>
         </UserInfoContainer>

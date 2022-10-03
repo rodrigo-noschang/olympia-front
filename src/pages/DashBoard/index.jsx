@@ -5,12 +5,27 @@ import Header from "../../components/Header";
 import LoadingUser from "../../components/LoadingUser";
 import DashboardContainer from "./style";
 import UserInfo from "../../components/UserInfo";
+import MealTable from "../../components/MealTable";
 
 const Dashboard = () => {
     const {userId} = useParams();
     const [user, setUser] = useState({});
     const [loadingUser, setLoadingUser] = useState(false);
-    const [userNotFound, setUserNotFound] = useState('');
+    const [mealsSeparation, setMealsSeparation] = useState({});
+
+    const separateMeals = (userFoods) => {
+        const separation = {};
+        
+        userFoods.forEach(food => {
+            if (separation[food.meal]) {
+                separation[food.meal].push(food);
+            } else {
+                separation[food.meal] = [food];
+            }
+        })
+        
+        setMealsSeparation(separation);
+    }
 
     useEffect(() => {
         if (!user.id) {
@@ -18,12 +33,11 @@ const Dashboard = () => {
             api.get(`/user/${userId}`)
                 .then(res => {
                     setUser(res.data);
-                    setLoadingUser(false)
+                    setLoadingUser(false);
+                    separateMeals(res.data.foods);
                 })
                 .catch(err => {
-                    console.log(err.response.data.msg);
                     setLoadingUser(false)
-                    setUserNotFound(err.response.data.msg);
                 })
         }
     }, [])
@@ -34,13 +48,22 @@ const Dashboard = () => {
             { loadingUser && 
                 <LoadingUser />
             }
-            { userNotFound ?
+            { !user.id ?
                 <div className = 'dashboard-user-not-found-container'>
-                    {userNotFound}...
+                    Usuário não encontrado...
                 </div>
                 :
                 <main className = 'dashboard-user-info-container'>
                     <UserInfo user = {user}/>
+
+                    <section className = 'dashboard-table-container'>
+                        { Object.keys(mealsSeparation).map((meal, index) => {
+                            return <MealTable key = {`meal-${index + 1}`}
+                                meal = {mealsSeparation[meal]}
+                                mealNumber = {meal}/>
+                            })
+                        }
+                    </section>
                 </main>
 
             }
