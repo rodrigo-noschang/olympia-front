@@ -1,11 +1,11 @@
 import MealFood from "../MealFood";
 import MealTableContainer from "./style";
 
-const MealTable = () => {
+const MealTable = ({ meal, mealNumber}) => {
 
     return (
         <MealTableContainer>
-            <h2 className = 'meal-table-title'> Refeição 1 </h2>
+            <h2 className = 'meal-table-title'> Refeição {mealNumber} </h2>
 
             <header className = 'meal-table-header'>
                 <div className = 'meal-table-header-data'> Alimento </div>
@@ -32,9 +32,12 @@ const MealTable = () => {
             </header>
 
             <ul className = 'meal-list-container'>
-                <MealFood />
-                <MealFood />
-                <MealFood />
+                { meal.map((food, index) => {
+                    return <MealFood key = {`meal-${mealNumber}-food-${index}`}
+                        food = {food}
+                    />
+                })}
+                <MealFood empty/>
             </ul>
             
         </MealTableContainer>
