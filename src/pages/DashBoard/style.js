@@ -10,6 +10,12 @@ const DashboardContainer = styled.div`
         font-size: 22px;
         font-style: italic;
     }
+
+    .dashboard-user-info-container {
+        width: 90vw;
+        max-width: 1200px;
+        margin: 35px auto 0;
+    }
 `;
 
 export default DashboardContainer;

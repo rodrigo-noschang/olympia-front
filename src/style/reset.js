@@ -8,6 +8,9 @@ const GlobalStyle = createGlobalStyle`
         --fail-red: #e9aaaa;
         --title-font: 'Bangers', cursive;
         --text-font: 'Urbanist', sans-serif;
+        --carbs-green: #867f44;
+        --protein-red: #803a3a;
+        --fat-orange: #94704e;
     }
 
     h1, h2, h3, header, form, fieldset, input, label, section, p, div, ul, li, button, span {

@@ -4,6 +4,7 @@ import api from '../../services/api';
 import Header from "../../components/Header";
 import LoadingUser from "../../components/LoadingUser";
 import DashboardContainer from "./style";
+import UserInfo from "../../components/UserInfo";
 
 const Dashboard = () => {
     const {userId} = useParams();
@@ -38,7 +39,9 @@ const Dashboard = () => {
                     {userNotFound}...
                 </div>
                 :
-                <div> {user.name} </div>
+                <main className = 'dashboard-user-info-container'>
+                    <UserInfo user = {user}/>
+                </main>
 
             }
         </DashboardContainer>
