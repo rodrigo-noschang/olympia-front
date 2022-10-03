@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import LoadingUser from "../../components/LoadingUser";
 import DashboardContainer from "./style";
 import UserInfo from "../../components/UserInfo";
+import MealTable from "../../components/MealTable";
 
 const Dashboard = () => {
     const {userId} = useParams();
@@ -41,6 +42,13 @@ const Dashboard = () => {
                 :
                 <main className = 'dashboard-user-info-container'>
                     <UserInfo user = {user}/>
+
+                    <section className = 'dashboard-table-container'>
+                        <MealTable />
+                        <MealTable />
+                        <MealTable />
+                        <MealTable />
+                    </section>
                 </main>
 
             }
