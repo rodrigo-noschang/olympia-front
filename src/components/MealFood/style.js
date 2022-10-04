@@ -1,9 +1,57 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const invalidInputShake = keyframes`
+    0% {
+        transform: translateX(0);
+    }
+
+    15% {
+        transform: translateX(4px);
+    }
+
+    30% {
+        transform: translateX(-4px);
+    }
+
+    45% {
+        transform: translateX(4px);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(0px);
+    }
+`;
 
 const MealFoodContainer = styled.li`
     display: flex;
     justify-content: space-between;
     padding: 10px 5px;
+    position: relative;
+
+    .create-food-load-container {
+        position: absolute;
+        background-color: var(--light-grey);
+        width: 100%;
+        height: 60px;
+        top: 0;
+        left: 0;
+        text-align: center;
+    }
+
+    .load {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .new-meal-form-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
 
     &:nth-child(2n - 1) {
         background-color: #f3f3f3;
@@ -26,8 +74,45 @@ const MealFoodContainer = styled.li`
         width: 30px;
         padding: 5px;
         box-shadow: inset 0 0 1px 1px var(--light-grey);
-        border: none;
-        outline: none;;
+        border: 1px solid #f3f3f3;
+        outline: none;
+    }
+
+    .food-name-input {
+        border-color: ${props => props.errors.name ? 'red' : '#F3F3F3'};
+        animation-name: ${props => props.errors.name ? invalidInputShake : ''};
+        animation-duration: .5s;
+    }
+
+    .food-weight-input {
+        border-color: ${props => props.errors.food_weight ? 'red' : '#F3F3F3'};
+        animation-name: ${props => props.errors.food_weight ? invalidInputShake : ''};
+        animation-duration: .5s;
+    }
+
+    .food-carbs-input {
+        border-color: ${props => props.errors.carbs ? 'red' : '#F3F3F3'};
+        animation-name: ${props => props.errors.carbs ? invalidInputShake : ''};
+        animation-duration: .5s;
+    }
+
+    .food-protein-input {
+        border-color: ${props => props.errors.protein ? 'red' : '#F3F3F3'};
+        animation-name: ${props => props.errors.protein ? invalidInputShake : ''};
+        animation-duration: .5s;
+    }
+
+    .food-fat-input {
+        border-color: ${props => props.errors.fat ? 'red' : '#F3F3F3'};
+        animation-name: ${props => props.errors.fat ? invalidInputShake : ''};
+        animation-duration: .5s;
+    }
+
+    .new-form-error {
+        font-size: 12px;
+        color: red;
+        font-style: italic;
+        text-align: center;
     }
 
     /* Remove arrows in number type input on Chrome, Safari, Edge, Opera */
@@ -44,6 +129,10 @@ const MealFoodContainer = styled.li`
 
     .food-name-input {
         width: 100%;
+    }
+
+    .new-food-submit {
+        display: none;
     }
 
     @media only screen and (min-width: 550px) {

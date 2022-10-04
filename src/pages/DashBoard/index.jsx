@@ -60,7 +60,9 @@ const Dashboard = () => {
                         { Object.keys(mealsSeparation).map((meal, index) => {
                             return <MealTable key = {`meal-${index + 1}`}
                                 meal = {mealsSeparation[meal]}
-                                mealNumber = {meal}/>
+                                mealNumber = {meal} 
+                                setMealsSeparation = {setMealsSeparation}
+                                mealsSeparation = {mealsSeparation} />
                             })
                         }
                     </section>

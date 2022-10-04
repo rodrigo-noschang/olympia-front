@@ -1,7 +1,8 @@
 import MealFood from "../MealFood";
 import MealTableContainer from "./style";
 
-const MealTable = ({ meal, mealNumber}) => {
+const MealTable = ({ meal, mealNumber, setMealsSeparation, mealsSeparation}) => {
+    const newFoods = [];
 
     return (
         <MealTableContainer>
@@ -34,10 +35,14 @@ const MealTable = ({ meal, mealNumber}) => {
             <ul className = 'meal-list-container'>
                 { meal.map((food, index) => {
                     return <MealFood key = {`meal-${mealNumber}-food-${index}`}
-                        food = {food}
-                    />
-                })}
-                <MealFood empty/>
+                        food = {food}/>
+                    })
+                }
+                <MealFood empty newFoods = {newFoods} 
+                    meal = {meal} 
+                    mealNumber = {mealNumber} 
+                    setMealsSeparation = {setMealsSeparation}
+                    mealsSeparation = {mealsSeparation}/>
             </ul>
             
         </MealTableContainer>
