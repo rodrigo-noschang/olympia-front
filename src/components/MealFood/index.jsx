@@ -6,12 +6,13 @@ import ReactLoading from 'react-loading';
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
+import { useUserContext } from "../../Providers/UserProvider"; 
 
-
-const MealFood = ({ empty, food, meal, mealNumber, setMealsSeparation, mealsSeparation }) => {
+const MealFood = ({ empty, food, meal, mealNumber }) => {
     const [loadingNewFood, setLoadingNewFood] = useState(false);
     const { userId } = useParams();
     const token = localStorage.getItem('diet-buddy:token') || '';
+    const { setMealsSeparation, mealsSeparation } = useUserContext();
 
     const newFoodSchema = yup.object().shape({
         name: yup.string().required('Campo Obrigatório'),

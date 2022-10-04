@@ -6,26 +6,12 @@ import LoadingUser from "../../components/LoadingUser";
 import DashboardContainer from "./style";
 import UserInfo from "../../components/UserInfo";
 import MealTable from "../../components/MealTable";
+import { useUserContext } from "../../Providers/UserProvider";
 
 const Dashboard = () => {
     const {userId} = useParams();
-    const [user, setUser] = useState({});
     const [loadingUser, setLoadingUser] = useState(false);
-    const [mealsSeparation, setMealsSeparation] = useState({});
-
-    const separateMeals = (userFoods) => {
-        const separation = {};
-        
-        userFoods.forEach(food => {
-            if (separation[food.meal]) {
-                separation[food.meal].push(food);
-            } else {
-                separation[food.meal] = [food];
-            }
-        })
-        
-        setMealsSeparation(separation);
-    }
+    const { user, setUser, mealsSeparation, separateMeals} = useUserContext();
 
     useEffect(() => {
         if (!user.id) {
@@ -60,9 +46,7 @@ const Dashboard = () => {
                         { Object.keys(mealsSeparation).map((meal, index) => {
                             return <MealTable key = {`meal-${index + 1}`}
                                 meal = {mealsSeparation[meal]}
-                                mealNumber = {meal} 
-                                setMealsSeparation = {setMealsSeparation}
-                                mealsSeparation = {mealsSeparation} />
+                                mealNumber = {meal} />
                             })
                         }
                     </section>

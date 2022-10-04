@@ -1,7 +1,7 @@
 import MealFood from "../MealFood";
 import MealTableContainer from "./style";
 
-const MealTable = ({ meal, mealNumber, setMealsSeparation, mealsSeparation}) => {
+const MealTable = ({ meal, mealNumber }) => {
     const newFoods = [];
 
     return (
@@ -40,9 +40,7 @@ const MealTable = ({ meal, mealNumber, setMealsSeparation, mealsSeparation}) => 
                 }
                 <MealFood empty newFoods = {newFoods} 
                     meal = {meal} 
-                    mealNumber = {mealNumber} 
-                    setMealsSeparation = {setMealsSeparation}
-                    mealsSeparation = {mealsSeparation}/>
+                    mealNumber = {mealNumber} />
             </ul>
             
         </MealTableContainer>
