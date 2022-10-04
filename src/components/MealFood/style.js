@@ -66,7 +66,7 @@ const MealFoodContainer = styled.li`
 
     .meal-list-data:not(:first-child) {
         flex-basis: 12%;
-        text-align: right;
+        text-align: center;
         margin: 0 5px;
     }
 
@@ -135,6 +135,18 @@ const MealFoodContainer = styled.li`
         display: none;
     }
 
+    .menu-icon-modal-container {
+        position: absolute;
+        width: 100%;  
+    }
+
+    .menu-icon-clickable-area {
+        width: 20px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: 2px;
+    }
+
     @media only screen and (min-width: 550px) {
         .meal-list-input {
             width: 50px;
@@ -148,6 +160,7 @@ const MealFoodContainer = styled.li`
     @media only screen and (min-width: 650px) {
         .meal-list-data:not(:first-child) {
             margin: 0 15px;
+            text-align: right;
         }
     }
 `;

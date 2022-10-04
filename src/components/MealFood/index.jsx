@@ -7,13 +7,15 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
 import { useUserContext } from "../../Providers/UserProvider"; 
+import { BsThreeDotsVertical } from 'react-icons/bs';
 
 const MealFood = ({ empty, food, meal, mealNumber }) => {
     const [loadingNewFood, setLoadingNewFood] = useState(false);
     const { userId } = useParams();
     const token = localStorage.getItem('diet-buddy:token') || '';
     const { setMealsSeparation, mealsSeparation } = useUserContext();
-
+    const [menuOpen, setMenuOpen] = useState(false);
+    
     const newFoodSchema = yup.object().shape({
         name: yup.string().required('Campo Obrigatório'),
         food_weight: yup.number().required('Campo Obrigatório'),
@@ -25,7 +27,6 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
     const { register, formState: {errors}, handleSubmit, reset } = useForm({
         resolver: yupResolver(newFoodSchema)
     });
-
 
     const createNewFood = data => {
         setLoadingNewFood(true);
@@ -47,6 +48,10 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
             console.log(err);
             setLoadingNewFood(false);
         })
+    }
+
+    const handleDrag = e => {
+        console.log(e.clientX);
     }
 
     return (
@@ -99,7 +104,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                     </form>
                 </MealFoodContainer>
             :
-                <MealFoodContainer errors = {errors}>
+                <MealFoodContainer draggable = {true} errors = {errors} onDrag = {handleDrag}>
                     <div className = 'meal-list-data food-name' title = {food.name}>
                         {food.name}
                     </div>
@@ -115,6 +120,14 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                     <div className = 'meal-list-data food-fat'>
                         {food.fat}
                     </div>
+
+                    { menuOpen &&
+                        <div className = 'menu-icon-modal-container'>
+                            <div className = 'menu-icon-clickable-area'>
+                                <BsThreeDotsVertical className = 'menu-icon'/>
+                            </div>
+                        </div>
+                    }
                 </MealFoodContainer>
             }   
         </>
