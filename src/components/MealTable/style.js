@@ -36,6 +36,10 @@ const MealTableContainer = styled.div`
         margin: 0 5px;
     }
 
+    .meal-list-container {
+        overflow: hidden;
+    }
+
     .meal-table-header-unit {
         font-family: var(--text-font);
         font-size: 12px;

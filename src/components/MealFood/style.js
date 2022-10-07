@@ -31,6 +31,8 @@ const MealFoodContainer = styled.li`
     justify-content: space-between;
     padding: 10px 5px;
     position: relative;
+    transform: ${props => props.positionDelta < 0 ? 'translateX(-50px)' : 'translateX(0)'};
+    transition: transform .3s ease-in;
 
     .create-food-load-container {
         position: absolute;
@@ -165,4 +167,9 @@ const MealFoodContainer = styled.li`
     }
 `;
 
-export default MealFoodContainer
+const MealFoodOptions = styled.div`
+    position: absolute;
+    left: 100%;
+`;
+
+export { MealFoodContainer, MealFoodOptions };

@@ -1,4 +1,4 @@
-import MealFoodContainer from "./style";
+import { MealFoodContainer, MealFoodOptions} from "./style";
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,15 +6,17 @@ import ReactLoading from 'react-loading';
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
-import { useUserContext } from "../../Providers/UserProvider"; 
-import { BsThreeDotsVertical } from 'react-icons/bs';
+import { useUserContext } from "../../Providers/UserProvider";
 
 const MealFood = ({ empty, food, meal, mealNumber }) => {
     const [loadingNewFood, setLoadingNewFood] = useState(false);
+    const [positionDeltaAnimation, setPositionDeltaAnimation] = useState(0);
+    // const [initialPosition, setInicialPosition] = useState(0);
+    let initialPosition = 0;
+    let positionDelta = 0;
     const { userId } = useParams();
     const token = localStorage.getItem('diet-buddy:token') || '';
     const { setMealsSeparation, mealsSeparation } = useUserContext();
-    const [menuOpen, setMenuOpen] = useState(false);
     
     const newFoodSchema = yup.object().shape({
         name: yup.string().required('Campo Obrigatório'),
@@ -50,14 +52,35 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
         })
     }
 
-    const handleDrag = e => {
-        console.log(e.clientX);
+    const registerStart = e => {
+        // setInicialPosition(e.touches[0].clientX);
+        setPositionDeltaAnimation(0);
+        initialPosition = e.touches[0].clientX
     }
+
+    // const updateTouchPosition = e => {
+    //     const finalPosition = e.touches[0].clientX;
+    //     setPositionDelta(finalPosition - initialPosition)
+    // }
+
+
+
+    const resetPositionDelta = e => {
+        const finalPosition = e.changedTouches[0].clientX;
+        const positionDelta = finalPosition - initialPosition;
+
+        if (positionDelta <= -30) {
+            setPositionDeltaAnimation(-30);
+        }
+    }
+
 
     return (
         <>
             { empty ?
-                <MealFoodContainer onSubmit = {handleSubmit(createNewFood)} errors = {errors}>
+                <MealFoodContainer onSubmit = {handleSubmit(createNewFood)} 
+                    errors = {errors}
+                    positionDelta = {positionDelta} >
                     { loadingNewFood &&
                         <div className = 'create-food-load-container'>
                             <ReactLoading className = 'load' type = 'bars' color = '#E54E47' height = {35} width = {35}/>
@@ -104,31 +127,32 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                     </form>
                 </MealFoodContainer>
             :
-                <MealFoodContainer draggable = {true} errors = {errors} onDrag = {handleDrag}>
-                    <div className = 'meal-list-data food-name' title = {food.name}>
-                        {food.name}
-                    </div>
-                    <div className = 'meal-list-data food-weight'>
-                        {food.food_weight}
-                    </div>
-                    <div className = 'meal-list-data food-carb'>
-                        {food.carbs}
-                    </div>
-                    <div className = 'meal-list-data food-protein'>
-                        {food.protein}
-                    </div>
-                    <div className = 'meal-list-data food-fat'>
-                        {food.fat}
-                    </div>
-
-                    { menuOpen &&
-                        <div className = 'menu-icon-modal-container'>
-                            <div className = 'menu-icon-clickable-area'>
-                                <BsThreeDotsVertical className = 'menu-icon'/>
-                            </div>
+                <> 
+                    <MealFoodContainer draggable = {true} errors = {errors} 
+                        onTouchStart = {registerStart}
+                        // onTouchMove = {updateTouchPosition} 
+                        onTouchEnd = {resetPositionDelta}
+                        positionDelta = {positionDeltaAnimation} >
+                        <div className = 'meal-list-data food-name' title = {food.name}>
+                            {food.name}
                         </div>
-                    }
-                </MealFoodContainer>
+                        <div className = 'meal-list-data food-weight'>
+                            {food.food_weight}
+                        </div>
+                        <div className = 'meal-list-data food-carb'>
+                            {food.carbs}
+                        </div>
+                        <div className = 'meal-list-data food-protein'>
+                            {food.protein}
+                        </div>
+                        <div className = 'meal-list-data food-fat'>
+                            {food.fat}
+                        </div>
+                        <MealFoodOptions> 
+                            Oiee 
+                        </MealFoodOptions>
+                    </MealFoodContainer>
+                </>
             }   
         </>
     )
