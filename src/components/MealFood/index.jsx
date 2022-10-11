@@ -14,12 +14,11 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
     // This state will change if user clicks to update food.. The food data
     // will turn into an empty input
     const [emptyState, setEmptyState] = useState(empty);
-    const [foodState, setFoodState] = useState(food);
     const [loadingNewFood, setLoadingNewFood] = useState(false);
     let positionDelta = 0;
     const { userId } = useParams();
     const token = localStorage.getItem('diet-buddy:token') || '';
-    const { setMealsSeparation, mealsSeparation, removeFood } = useUserContext();
+    const { setMealsSeparation, mealsSeparation, removeFood, updateFood } = useUserContext();
     
     const newFoodSchema = yup.object().shape({
         name: yup.string().required('Campo Obrigatório'),
@@ -74,7 +73,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
             }
         })
         .then(res => {
-            setFoodState(res.data);
+            updateFood(meal, res.data, mealNumber)
             setLoadingNewFood(false);
             setEmptyState(false);
         })
@@ -95,11 +94,12 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
             }
         })
         .then(res => {
-            removeFood(res.data.id);
+            removeFood(meal, res.data.id, mealNumber);
             setLoadingNewFood(false);
         }) 
         .catch(err => {
             console.log(err);
+            setLoadingNewFood(false);
         })
     }
 
@@ -167,19 +167,19 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                 <> 
                     <MealFoodContainer draggable = {true} errors = {errors} >
                         <div className = 'meal-list-data food-name' title = {food.name}>
-                            {foodState.name}
+                            {food.name}
                         </div>
                         <div className = 'meal-list-data food-weight'>
-                            {foodState.food_weight}
+                            {food.food_weight}
                         </div>
                         <div className = 'meal-list-data food-carb'>
-                            {foodState.carbs}
+                            {food.carbs}
                         </div>
                         <div className = 'meal-list-data food-protein'>
-                            {foodState.protein}
+                            {food.protein}
                         </div>
                         <div className = 'meal-list-data food-fat'>
-                            {foodState.fat}
+                            {food.fat}
                         </div>
                         <MealFoodOptions> 
                             <span className = 'meal-food-options meal-food-options-edit'

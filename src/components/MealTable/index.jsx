@@ -35,7 +35,9 @@ const MealTable = ({ meal, mealNumber }) => {
             <ul className = 'meal-list-container'>
                 { meal.map((food, index) => {
                     return <MealFood key = {`meal-${mealNumber}-food-${index}`}
-                        food = {food}/>
+                        food = {food}
+                        meal = {meal} 
+                        mealNumber = {mealNumber}/>
                     })
                 }
                 <MealFood empty newFoods = {newFoods} 

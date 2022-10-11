@@ -188,6 +188,10 @@ const MealFoodOptions = styled.div`
     .meal-food-options {
         margin: 0 5px;
     }
+
+    .meal-food-options-edit {
+        color: var(--background-black);
+    }
 `;
 
 export { MealFoodContainer, MealFoodOptions};

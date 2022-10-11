@@ -20,12 +20,24 @@ export const UserProvider = ({ children }) => {
         setMealsSeparation(separation);
     }
 
-    const removeFood = ( removedFoodId ) => {
-        const updatedFoods = user.foods.filter(food => {
+    const updateFood = (meal, updatedFoodData, mealNumber) => {
+        const foodIndex = meal.findIndex(food => {
+            return food.id === updatedFoodData.id
+        });
+
+        meal.splice(foodIndex, 1, updatedFoodData);
+
+        mealsSeparation[mealNumber] = meal;
+        setMealsSeparation({...mealsSeparation});
+    }
+
+    const removeFood = ( meal, removedFoodId, mealNumber ) => {
+        const updatedMeal = meal.filter(food => {
             return food.id !== removedFoodId
         })
 
-        separateMeals(updatedFoods);
+        mealsSeparation[mealNumber] = updatedMeal;
+        setMealsSeparation({...mealsSeparation});
     }
 
     return (
@@ -35,7 +47,8 @@ export const UserProvider = ({ children }) => {
             mealsSeparation, 
             setMealsSeparation, 
             separateMeals, 
-            removeFood }}>
+            removeFood, 
+            updateFood }}>
             { children }
         </UserContext.Provider>
     )
