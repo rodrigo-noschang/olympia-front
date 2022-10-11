@@ -33,6 +33,17 @@ const MealFoodContainer = styled.li`
     position: relative;
     transform: ${props => props.positionDelta < 0 ? 'translateX(-50px)' : 'translateX(0)'};
     transition: transform .3s ease-in;
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    & {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    }
+
 
     .create-food-load-container {
         position: absolute;
@@ -170,6 +181,13 @@ const MealFoodContainer = styled.li`
 const MealFoodOptions = styled.div`
     position: absolute;
     left: 100%;
+    display: flex;
+    color: var(--text-red);
+    align-items: center;
+
+    .meal-food-options {
+        margin: 0 5px;
+    }
 `;
 
-export { MealFoodContainer, MealFoodOptions };
+export { MealFoodContainer, MealFoodOptions};

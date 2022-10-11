@@ -20,8 +20,22 @@ export const UserProvider = ({ children }) => {
         setMealsSeparation(separation);
     }
 
+    const removeFood = ( removedFoodId ) => {
+        const updatedFoods = user.foods.filter(food => {
+            return food.id !== removedFoodId
+        })
+
+        separateMeals(updatedFoods);
+    }
+
     return (
-        <UserContext.Provider value = {{user, setUser, mealsSeparation, setMealsSeparation, separateMeals}}>
+        <UserContext.Provider value = {{
+            user, 
+            setUser, 
+            mealsSeparation, 
+            setMealsSeparation, 
+            separateMeals, 
+            removeFood }}>
             { children }
         </UserContext.Provider>
     )
