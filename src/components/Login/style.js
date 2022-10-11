@@ -1,5 +1,29 @@
 import styled, { keyframes } from 'styled-components';
 
+const appearFromBottomMobile = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(-250px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(var(--height));
+    }
+`;
+
+const disappearToBottomMobile = keyframes`
+    from {
+        opacity: 1;
+        transform: translateY(var(--height));
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+`;
+
 const disappearToRight = keyframes`
     from {
         opacity: 1;
@@ -29,9 +53,11 @@ const LoginContainer = styled.form`
     max-width: 510px;
     padding: 20px 10px;
     background-color: var(--background-black);
-    animation: ${props => props.animation === 'hide-login' ? disappearToRight : props.animation === 'hide-register' ? appearFromRight : ''};
+    animation-name: ${props => props.animation === 'hide-login' ? disappearToBottomMobile : props.animation === 'hide-register' ? appearFromBottomMobile : ''};
     animation-duration: 1s;
     height: fit-content;
+
+    --height: -609px;
     
     .login-header {
         color: #fff;
@@ -124,6 +150,18 @@ const LoginContainer = styled.form`
 
     .login-register-link:active {
         color: var(--background-black);
+    }
+
+    @media only screen and (min-width: 341px) {
+        --height: -547px;
+    }
+
+    @media only screen and (min-width: 480px) {
+        --height: -525px;
+    }
+
+    @media only screen and (min-width: 1530px) {
+        animation-name: ${props => props.animation === 'hide-login' ? disappearToRight : props.animation === 'hide-register' ? appearFromRight : ''};
     }
 `;
 

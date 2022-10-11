@@ -1,5 +1,29 @@
 import styled, {keyframes} from 'styled-components';
 
+const appearFromTopMobile = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(-200px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+`;
+
+const disappearToTopMobile = keyframes`
+    from {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-200px);
+    }
+`;
+
 const disappearToLeft = keyframes`
     from {
         opacity: 1;
@@ -30,7 +54,7 @@ const RegisterContainer = styled.form`
     max-width: 510px;
     padding: 20px 10px;
     background-color: var(--background-black);
-    animation: ${props => props.animation === 'hide-register' ? disappearToLeft : props.animation === 'hide-login' ? appearFromLeft : ''};
+    animation-name: ${props => props.animation === 'hide-register' ? disappearToTopMobile : props.animation === 'hide-login' ? appearFromTopMobile : ''};
     animation-duration: 1s;
 
     .register-form-access {
@@ -223,6 +247,10 @@ const RegisterContainer = styled.form`
         .gender-container {
             justify-content: space-around;
         }
+    }
+
+    @media only screen and (min-width: 1530px) {
+        animation-name: ${props => props.animation === 'hide-register' ? disappearToLeft : props.animation === 'hide-login' ? appearFromLeft : ''};
     }
 `;
 

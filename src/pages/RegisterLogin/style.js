@@ -44,12 +44,22 @@ const RegisterLoginContainer = styled.div`
     .register-login-container {
         display: flex;
         justify-content: center;
+        flex-direction: column;
+        align-items: center;
         margin-top: 20px;
+
     }
 
     @media only screen and (min-width: 570px) {
         .register-login-container {
             margin-top: 80px;
+        }
+    }
+
+    @media only screen and (min-width: 1530px) {
+        .register-login-container {
+            flex-direction: row;
+            align-items: flex-start;
         }
     }
 
