@@ -8,6 +8,7 @@ export const UserProvider = ({ children }) => {
 
     const separateMeals = (userFoods) => {
         const separation = {};
+        console.log('UserFoods -> ', userFoods)
         
         userFoods.forEach(food => {
             if (separation[food.meal]) {
@@ -40,6 +41,13 @@ export const UserProvider = ({ children }) => {
         setMealsSeparation({...mealsSeparation});
     }
 
+    const addNewMeal = () => {
+        const mealAmount = Object.keys(mealsSeparation).length;
+        
+        mealsSeparation[mealAmount + 1] = [];
+        setMealsSeparation({...mealsSeparation});
+    }
+
     return (
         <UserContext.Provider value = {{
             user, 
@@ -48,7 +56,8 @@ export const UserProvider = ({ children }) => {
             setMealsSeparation, 
             separateMeals, 
             removeFood, 
-            updateFood }}>
+            updateFood,
+            addNewMeal }}>
             { children }
         </UserContext.Provider>
     )

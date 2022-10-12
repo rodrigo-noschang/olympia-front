@@ -7,11 +7,13 @@ import DashboardContainer from "./style";
 import UserInfo from "../../components/UserInfo";
 import MealTable from "../../components/MealTable";
 import { useUserContext } from "../../Providers/UserProvider";
+import ReactLoading from 'react-loading';
 
 const Dashboard = () => {
     const {userId} = useParams();
     const [loadingUser, setLoadingUser] = useState(false);
-    const { user, setUser, mealsSeparation, separateMeals} = useUserContext();
+    const [loadNewMeal, setLoadNewMeal] = useState(false);
+    const { user, setUser, mealsSeparation, separateMeals, addNewMeal} = useUserContext();
 
     useEffect(() => {
         if (!user.id) {
@@ -27,6 +29,12 @@ const Dashboard = () => {
                 })
         }
     }, [])
+
+    const addMeal = () => {
+        setLoadNewMeal(true);
+        addNewMeal();
+        setLoadNewMeal(false);
+    }
 
     return (
         <DashboardContainer>
@@ -50,6 +58,12 @@ const Dashboard = () => {
                             })
                         }
                     </section>
+                    <button onClick = {addMeal} className = 'dashboard-add-meal'> 
+                        { loadNewMeal &&
+                            <ReactLoading className = 'dashboard-add-meal-load' type = 'bars' color = '#E54E47' height = {25} width = {25}/>
+                        }
+                        Adicionar Refeição 
+                    </button>
                 </main>
 
             }
