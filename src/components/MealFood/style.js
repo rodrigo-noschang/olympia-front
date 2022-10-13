@@ -178,7 +178,7 @@ const MealFoodContainer = styled.li`
     }
 `;
 
-const MealFoodOptions = styled.div`
+const MealFoodOptionsMobile = styled.div`
     position: absolute;
     left: 100%;
     display: flex;
@@ -192,6 +192,34 @@ const MealFoodOptions = styled.div`
     .meal-food-options-edit {
         color: var(--background-black);
     }
+
+    @media only screen and (min-width: 1300px) {
+        display: none;
+    }
 `;
 
-export { MealFoodContainer, MealFoodOptions};
+const MealFoodOptionsDesktop = styled.div`
+    display: none;
+
+    @media only screen and (min-width: 1300px) {
+        display: flex;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        color: var(--text-red);
+        align-items: center;
+        background-color: #ddd;
+        padding: 5px;
+        
+        .meal-food-options {
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .meal-food-options-edit {
+            color: var(--background-black);
+        }
+    }
+`;
+
+export { MealFoodContainer, MealFoodOptionsMobile, MealFoodOptionsDesktop };

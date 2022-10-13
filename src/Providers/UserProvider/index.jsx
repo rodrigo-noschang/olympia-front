@@ -1,4 +1,5 @@
 import { useContext, createContext, useState } from "react";
+import api from "../../services/api";
 
 const UserContext = createContext();
 
@@ -8,7 +9,6 @@ export const UserProvider = ({ children }) => {
 
     const separateMeals = (userFoods) => {
         const separation = {};
-        console.log('UserFoods -> ', userFoods)
         
         userFoods.forEach(food => {
             if (separation[food.meal]) {
@@ -48,6 +48,35 @@ export const UserProvider = ({ children }) => {
         setMealsSeparation({...mealsSeparation});
     }
 
+    const removeMeal = (mealNumber) => {
+        mealNumber = Number(mealNumber);
+        const meals = Object.keys(mealsSeparation);
+
+        for (let i = mealNumber; i < meals.length; i++ ) {
+            mealsSeparation[i] = mealsSeparation[i + 1];
+        }
+
+        delete mealsSeparation[meals.length];
+        setMealsSeparation({...mealsSeparation});
+
+
+        api.delete(`/food/${mealNumber}`)
+        .then(res => {
+            for (let i = mealNumber; i < meals.length; i++) {
+                const newMeal = {
+                    meal: i
+                };
+
+                api.patch(`/food/${i + 1}`, newMeal)
+                .then(res => console.log(res))
+                .catch(err => console.log(err))
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
     return (
         <UserContext.Provider value = {{
             user, 
@@ -57,7 +86,8 @@ export const UserProvider = ({ children }) => {
             separateMeals, 
             removeFood, 
             updateFood,
-            addNewMeal }}>
+            addNewMeal, 
+            removeMeal }}>
             { children }
         </UserContext.Provider>
     )

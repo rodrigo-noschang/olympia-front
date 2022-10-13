@@ -1,12 +1,16 @@
 import MealFood from "../MealFood";
 import MealTableContainer from "./style";
+import { useUserContext } from "../../Providers/UserProvider";
 
 const MealTable = ({ meal, mealNumber }) => {
     const newFoods = [];
+    const { removeMeal } = useUserContext();
 
     return (
         <MealTableContainer>
-            <h2 className = 'meal-table-title'> Refeição {mealNumber} </h2>
+            <h2 className = 'meal-table-title' onClick = {() => removeMeal(mealNumber)}> 
+                Refeição {mealNumber} 
+            </h2>
 
             <header className = 'meal-table-header'>
                 <div className = 'meal-table-header-data'> Alimento </div>

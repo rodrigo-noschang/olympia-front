@@ -1,4 +1,4 @@
-import { MealFoodContainer, MealFoodOptions} from "./style";
+import { MealFoodContainer, MealFoodOptionsMobile, MealFoodOptionsDesktop} from "./style";
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,6 +15,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
     // will turn into an empty input
     const [emptyState, setEmptyState] = useState(empty);
     const [loadingNewFood, setLoadingNewFood] = useState(false);
+    const [foodOptionsDesktop, setFoodOptionsDesktop] = useState(false);
     let positionDelta = 0;
     const { userId } = useParams();
     const token = localStorage.getItem('diet-buddy:token') || '';
@@ -85,7 +86,6 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
     }
 
     const deleteFood = () => {
-        console.log('Veio');
         setLoadingNewFood(true);
 
         api.delete(`/food/${food.id}`, {
@@ -105,6 +105,14 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
 
     const openEditForm = () => {
         setEmptyState(true);
+    }
+
+    const showOptionsDesktop = () => {
+        setFoodOptionsDesktop(true);
+    }
+
+    const hideOptionsDesktop = () => {
+        setFoodOptionsDesktop(false);
     }
 
     return (
@@ -165,7 +173,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                 </MealFoodContainer>
             :
                 <> 
-                    <MealFoodContainer draggable = {true} errors = {errors} >
+                    <MealFoodContainer errors = {errors} onMouseEnter = {showOptionsDesktop} onMouseLeave = {hideOptionsDesktop} >
                         <div className = 'meal-list-data food-name' title = {food.name}>
                             {food.name}
                         </div>
@@ -181,7 +189,8 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                         <div className = 'meal-list-data food-fat'>
                             {food.fat}
                         </div>
-                        <MealFoodOptions> 
+
+                        <MealFoodOptionsMobile> 
                             <span className = 'meal-food-options meal-food-options-edit'
                                 onClick = {openEditForm} >
                                 <RiEditFill />
@@ -191,7 +200,22 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                                 onClick = {deleteFood}>
                                 <HiTrash />
                             </span>
-                        </MealFoodOptions>
+                        </MealFoodOptionsMobile>
+
+                        
+                        { foodOptionsDesktop &&
+                        <MealFoodOptionsDesktop>
+                            <span className = 'meal-food-options meal-food-options-edit'
+                                onClick = {openEditForm} >
+                                <RiEditFill />
+                            </span>
+
+                            <span className = 'meal-food-options meal-food-options-delete'
+                                onClick = {deleteFood}>
+                                <HiTrash />
+                            </span>
+                        </MealFoodOptionsDesktop>
+                        }
                     </MealFoodContainer>
                 </>
             }   
