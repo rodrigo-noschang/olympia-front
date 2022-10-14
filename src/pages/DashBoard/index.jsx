@@ -15,6 +15,8 @@ const Dashboard = () => {
     const [loadNewMeal, setLoadNewMeal] = useState(false);
     const { user, setUser, mealsSeparation, separateMeals, addNewMeal} = useUserContext();
 
+    const areMealsEmpty = !mealsSeparation['1'];
+
     useEffect(() => {
         if (!user.id) {
             setLoadingUser(true);
@@ -58,6 +60,13 @@ const Dashboard = () => {
                             })
                         }
                     </section>
+                    
+                    { areMealsEmpty &&
+                    <div className = 'dashboard-empty-meals-message'>
+                        Você ainda não possui refeições. Clique no botão abaixo para criá-las.
+                    </div>
+                    }
+
                     <button onClick = {addMeal} className = 'dashboard-add-meal'> 
                         { loadNewMeal &&
                             <ReactLoading className = 'dashboard-add-meal-load' type = 'bars' color = '#E54E47' height = {25} width = {25}/>

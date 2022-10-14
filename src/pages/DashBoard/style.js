@@ -22,6 +22,13 @@ const DashboardContainer = styled.div`
         margin: 30px auto;
     }
 
+    .dashboard-empty-meals-message {
+        text-align: center;
+        margin: 15px 0 25px;
+        font-size: 20px;
+        font-style: italic;
+    }
+
     .dashboard-add-meal {
         padding: 5px 15px;
         border: none;

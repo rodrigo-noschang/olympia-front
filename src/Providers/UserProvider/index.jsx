@@ -6,6 +6,38 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const [mealsSeparation, setMealsSeparation] = useState({})
+    const [carbsTotalState, setCarbsTotalState] = useState(0);
+    const [proteinTotalState, setProteinTotalState] = useState(0);
+    const [fatTotalState, setFatTotalState] = useState(0);
+    
+    let totalCalories = carbsTotalState * 4 + proteinTotalState * 4 + fatTotalState * 9;
+    
+    const bmr = user.gender === 'M' ? 
+        66.5 + (13.75 * user.weight) + (5.003 * user.height) - (6.75 * user.age)
+    : user.gender === 'F' ?
+        655.1 + (9.563 * user.weight) + (1.850 * user.height) - (4.676 * user.age)
+    : 0;
+
+    const calculateMacros = () => {
+        if (!user.id) return;
+        let carbsTotal = 0; 
+        let proteinTotal = 0;
+        let fatTotal = 0;
+
+        for (let meal in mealsSeparation) {
+            const currentMeal = mealsSeparation[meal];
+
+            for (let i = 0; i < currentMeal.length; i++) {
+                carbsTotal += currentMeal[i].carbs;
+                proteinTotal += currentMeal[i].protein;
+                fatTotal += currentMeal[i].fat;
+            }         
+        }
+
+        setCarbsTotalState(carbsTotal);
+        setProteinTotalState(proteinTotal);
+        setFatTotalState(fatTotal);
+    }
 
     const separateMeals = (userFoods) => {
         const separation = {};
@@ -68,7 +100,7 @@ export const UserProvider = ({ children }) => {
                 };
 
                 api.patch(`/food/${i + 1}`, newMeal)
-                .then(res => console.log(res))
+                .then(res => calculateMacros())
                 .catch(err => console.log(err))
             }
         })
@@ -87,7 +119,13 @@ export const UserProvider = ({ children }) => {
             removeFood, 
             updateFood,
             addNewMeal, 
-            removeMeal }}>
+            removeMeal, 
+            calculateMacros,
+            carbsTotalState,
+            proteinTotalState,
+            fatTotalState,
+            totalCalories, 
+            bmr }}>
             { children }
         </UserContext.Provider>
     )

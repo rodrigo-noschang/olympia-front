@@ -1,26 +1,17 @@
-import { useState, useEffect } from "react"
 import UserInfoContainer from "./style"
+import { useUserContext } from "../../Providers/UserProvider";
+import { useEffect } from "react";
 
 const UserInfo = ({ user }) => {
-    const [totalCarbs, setTotalCarbs] = useState(0);
-    const [totalProtein, setTotalProtein] = useState(0);
-    const [totalFat, setTotalFat] = useState(0);
-
+    const { calculateMacros, 
+        carbsTotalState, 
+        proteinTotalState, 
+        fatTotalState, 
+        totalCalories, 
+        bmr } = useUserContext();
 
     useEffect(() => {
-        let carbs = 0;
-        let protein = 0;
-        let fat = 0;
-
-        for (let i = 0; i < user.foods.length; i++) {
-            carbs += user.foods[i].carbs;
-            protein += user.foods[i].protein;
-            fat += user.foods[i].fat;
-        }
-
-        setTotalCarbs(carbs);
-        setTotalProtein(protein);
-        setTotalFat(fat);
+        calculateMacros();
     }, [])
 
 
@@ -33,17 +24,42 @@ const UserInfo = ({ user }) => {
             <section className = 'user-info-macros-container'>
                 <div className = 'user-info-macros carbs'> 
                     <span className = 'macros-name'> Carboidrato </span> 
-                    <span className = 'macros-value'> {(totalCarbs / user.weight).toFixed(2)}g/kg </span>
+                    <span className = 'macros-value'> {(carbsTotalState / user.weight).toFixed(2)}g/kg </span>
                 </div>
                 <div className = 'user-info-macros protein'> 
                     <span className = 'macros-name'> Proteina </span>    
-                    <span className = 'macros-value'> {(totalProtein / user.weight).toFixed(2)}g/kg </span>
+                    <span className = 'macros-value'> {(proteinTotalState / user.weight).toFixed(2)}g/kg </span>
                 </div>
                 <div className = 'user-info-macros fat'> 
                     <span className = 'macros-name'> Gordura </span>     
-                    <span className = 'macros-value'> {(totalFat / user.weight).toFixed(2)}g/kg </span>
+                    <span className = 'macros-value'> {(fatTotalState / user.weight).toFixed(2)}g/kg </span>
+                </div>
+
+                <div className = 'user-info-consumed-calories-container'>
+                    <div className = 'user-info-consumed-calories-text'>
+                        Calorias na dieta:
+                    </div>
+
+                    <div className = 'user-info-consumed-calories-value'>
+                        {totalCalories} Kcal
+                    </div>
+                </div>
+
+                <div className = 'user-info-required-calories-container'>
+                    <div className = 'user-info-required-calories-text'>
+                        Calorias necessárias:
+                    </div>
+
+                    <div className = 'user-info-required-calories-value'>
+                        {bmr} Kcal
+                    </div>
+                </div>
+
+                <div className = 'user-info-calories-difference'> 
+                    Saldo Calórico: {totalCalories - bmr} Kcal
                 </div>
             </section>
+
         </UserInfoContainer>
     )
 }

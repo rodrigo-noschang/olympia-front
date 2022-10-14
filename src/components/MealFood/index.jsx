@@ -19,7 +19,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
     let positionDelta = 0;
     const { userId } = useParams();
     const token = localStorage.getItem('diet-buddy:token') || '';
-    const { setMealsSeparation, mealsSeparation, removeFood, updateFood } = useUserContext();
+    const { setMealsSeparation, mealsSeparation, removeFood, updateFood, calculateMacros } = useUserContext();
     
     const newFoodSchema = yup.object().shape({
         name: yup.string().required('Campo Obrigatório'),
@@ -58,6 +58,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
             meal.push(dbFood);
             setMealsSeparation({...mealsSeparation});
             setLoadingNewFood(false);
+            calculateMacros();
         })
         .catch(err => {
             console.log(err);
@@ -77,6 +78,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
             updateFood(meal, res.data, mealNumber)
             setLoadingNewFood(false);
             setEmptyState(false);
+            calculateMacros();
         })
         .catch(err => {
             console.log(err);
@@ -96,6 +98,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
         .then(res => {
             removeFood(meal, res.data.id, mealNumber);
             setLoadingNewFood(false);
+            calculateMacros();
         }) 
         .catch(err => {
             console.log(err);

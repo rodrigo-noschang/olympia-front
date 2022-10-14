@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
         --protein-red: #803a3a;
         --fat-orange: #94704e;
         --light-grey: #b8b1b1;
+        --calories-orange: #615641;
     }
 
     h1, h2, h3, header, form, fieldset, input, label, section, p, div, ul, li, button, span, 

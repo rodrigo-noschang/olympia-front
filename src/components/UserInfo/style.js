@@ -39,6 +39,27 @@ const UserInfoContainer = styled.header`
         color: var(--fat-orange);
     }
 
+    .user-info-consumed-calories-container, .user-info-required-calories-container {
+        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        color: var(--calories-orange);
+        border-top: 2px solid var(--calories-orange);
+        padding: 5px 0;
+    }
+
+    .user-info-required-calories-container {
+        margin-top: 20px;
+        color: var(--background-black);
+        border-top-color: var(--background-black);
+    }
+
+    .user-info-calories-difference {
+        font-size: 15px;
+        text-align: center;
+        font-style: italic;;
+    }
+
     @media only screen and (min-width: 950px) {
         flex-direction: row;
         justify-content: space-between;
