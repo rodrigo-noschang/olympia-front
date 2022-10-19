@@ -7,8 +7,8 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
 import { useUserContext } from "../../Providers/UserProvider";
-import { RiEditFill } from 'react-icons/ri'
-import { HiTrash } from 'react-icons/hi'
+import { RiEditFill } from 'react-icons/ri';
+import { HiTrash } from 'react-icons/hi';
 
 const MealFood = ({ empty, food, meal, mealNumber }) => {
     // This state will change if user clicks to update food.. The food data

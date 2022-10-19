@@ -13,6 +13,34 @@ const MealTableContainer = styled.div`
         text-align: center;
         padding: 10px;
         font-size: 25px;
+        position: relative;
+    }
+
+    .meal-table-header-close-desktop {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        display: none;
+    }
+
+    .meal-table-title:hover .meal-table-header-close-desktop {
+        display: inline;
+    }
+
+    .meal-table-header-close-mobile {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        font-size: 20px;
+    }
+
+    .meal-table-header-close-mobile svg {
+        border: 1px solid var(--background-black);
+        background-color: var(--background-black);
+        border-radius: 50%;
+        color: var(--text-red);   
     }
 
     .meal-table-header {
@@ -86,12 +114,11 @@ const MealTableContainer = styled.div`
         }   
     }
 
-    /* @media only screen and (min-width: 700px) {
-        .meal-table-header-data:first-of-type {
-            max-width: 100%;
-            flex-basis: 26%;
+    @media only screen and (min-width: 1100px) {
+        .meal-table-header-close-mobile svg {
+            display: none;
         }
-    } */
+    }
 `;
 
 export default MealTableContainer

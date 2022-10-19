@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from '../../services/api';
 import Header from "../../components/Header";
@@ -14,10 +14,16 @@ const Dashboard = () => {
     const [loadingUser, setLoadingUser] = useState(false);
     const [loadNewMeal, setLoadNewMeal] = useState(false);
     const { user, setUser, mealsSeparation, separateMeals, addNewMeal} = useUserContext();
+    const navigate = useNavigate();
+    const token = localStorage.getItem('diet-buddy:token');
 
     const areMealsEmpty = !mealsSeparation['1'];
 
     useEffect(() => {
+        if (!token) {
+            navigate('/');
+        }
+
         if (!user.id) {
             setLoadingUser(true);
             api.get(`/user/${userId}`)

@@ -1,6 +1,8 @@
 import MealFood from "../MealFood";
 import MealTableContainer from "./style";
 import { useUserContext } from "../../Providers/UserProvider";
+import { HiTrash } from 'react-icons/hi';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 const MealTable = ({ meal, mealNumber }) => {
     const newFoods = [];
@@ -8,8 +10,15 @@ const MealTable = ({ meal, mealNumber }) => {
 
     return (
         <MealTableContainer>
-            <h2 className = 'meal-table-title' onClick = {() => removeMeal(mealNumber)}> 
+            <h2 className = 'meal-table-title'> 
                 Refeição {mealNumber} 
+                <span className = 'meal-table-header-close-desktop' onClick = {() => removeMeal(mealNumber)}>
+                    <HiTrash />     
+                </span>
+
+                <span className = 'meal-table-header-close-mobile' onClick = {() => removeMeal(mealNumber)}>
+                    <AiFillCloseCircle />     
+                </span>
             </h2>
 
             <header className = 'meal-table-header'>
