@@ -4,11 +4,14 @@ import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from 'jwt-decode'
+import jwt_decode from 'jwt-decode';
+import ReactLoading from 'react-loading';
+import { useState } from "react";
 
 const Login = ({ setLoginFailMessage, setRegisterSuccess, setRegisterFailMessage, hideLogin, animation }) => {
+    const [loadLogin, setLoadLogin] = useState(false);
     const navigate = useNavigate();
-    
+
     const loginSchema = yup.object().shape({
         email: yup.string().email('Esse campo deve ser um email').required('Informe seu email'),
         password: yup.string().required('Informe sua senha')
@@ -18,6 +21,7 @@ const Login = ({ setLoginFailMessage, setRegisterSuccess, setRegisterFailMessage
     });
 
     const loginFn = data => {
+        setLoadLogin(true);
         api.post('/user/login', data)
             .then(res => {
                 const token = res.data.token
@@ -26,11 +30,13 @@ const Login = ({ setLoginFailMessage, setRegisterSuccess, setRegisterFailMessage
                 const decodedToken = jwt_decode(token);
                 navigate(`/dashboard/${decodedToken.user_id}`);
                 
+                setLoadLogin(false);
             })
             .catch(err => {
                 setRegisterFailMessage(false);
                 setRegisterSuccess(false);
                 setLoginFailMessage(err.response.data.msg);
+                setLoadLogin(false);
             })
     }
 
@@ -72,7 +78,18 @@ const Login = ({ setLoginFailMessage, setRegisterSuccess, setRegisterFailMessage
                 }
             </section>
 
-            <button className = 'login-submit'> Login </button>
+            <button className = 'login-submit' disabled = {loadLogin}> 
+                { loadLogin ?
+                    <>
+                        <span className = 'login-submit-loading'> Logando... </span>
+                        <ReactLoading className = 'login-form-load' type = 'bars' color = '#302E31' height = {25} width = {25}/> 
+                    </>
+                :
+                    <span>
+                        Login
+                    </span>
+                }
+            </button>
 
             <div className = 'login-to-register'>
                 Não tem conta?

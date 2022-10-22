@@ -198,10 +198,14 @@ const Register = ({ setRegisterSuccess, setRegisterFailMessage, setLoginFailMess
                 </div>
             </section>
 
-            <button className = 'register-form-register'> 
-                Registrar
-                { loadRegsiter &&
-                    <ReactLoading className = 'register-form-load' type = 'bars' color = '#E54E47' height = {25} width = {25}/> 
+            <button className = 'register-form-register' disabled = {loadRegsiter}> 
+                { loadRegsiter ?
+                    <>
+                        <span className = 'register-submit-loading'> Registrando... </span>
+                        <ReactLoading className = 'register-form-load' type = 'bars' color = '#302E31' height = {25} width = {25}/> 
+                    </>
+                :
+                    <span> Registrar </span>
                 }
             </button>
 

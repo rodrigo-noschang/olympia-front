@@ -15,26 +15,25 @@ const Dashboard = () => {
     const [loadNewMeal, setLoadNewMeal] = useState(false);
     const { user, setUser, mealsSeparation, separateMeals, addNewMeal} = useUserContext();
     const navigate = useNavigate();
-    const token = localStorage.getItem('diet-buddy:token');
-
-    const areMealsEmpty = !mealsSeparation['1'];
-
+    
+    
     useEffect(() => {
+        const token = localStorage.getItem('diet-buddy:token') || '';
+        
         if (!token) {
             navigate('/');
-        }
-
-        if (!user.id) {
+        } else {
             setLoadingUser(true);
             api.get(`/user/${userId}`)
-                .then(res => {
-                    setUser(res.data);
-                    setLoadingUser(false);
-                    separateMeals(res.data.foods);
-                })
-                .catch(err => {
-                    setLoadingUser(false)
-                })
+            .then(res => {
+                setUser(res.data);
+                setLoadingUser(false);
+                separateMeals(res.data.foods);
+
+            })
+            .catch(err => {
+                setLoadingUser(false)
+            })
         }
     }, [])
 
@@ -67,7 +66,7 @@ const Dashboard = () => {
                         }
                     </section>
                     
-                    { areMealsEmpty &&
+                    { !mealsSeparation['1'] &&
                     <div className = 'dashboard-empty-meals-message'>
                         Você ainda não possui refeições. Clique no botão abaixo para criá-las.
                     </div>

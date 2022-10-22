@@ -192,6 +192,16 @@ const RegisterContainer = styled.form`
         color: #f3f3f3;
     }
 
+    .register-form-register[disabled] {
+        background-color: var(--light-grey);
+        color: var(--background-black);
+        cursor: not-allowed;
+    }
+
+    .register-submit-loading {
+        font-style: italic;
+    }
+
     .register-form-load {
         margin-left: 15px;
     }

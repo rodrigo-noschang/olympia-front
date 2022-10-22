@@ -106,7 +106,8 @@ const LoginContainer = styled.form`
     }
 
     .login-submit {
-        display: block;
+        display: flex;
+        align-items: center;
         margin: 35px auto 10px;
         padding: 5px 15px;
         color: var(--text-red);
@@ -127,6 +128,20 @@ const LoginContainer = styled.form`
         box-shadow: 0 0 8px 1px #fff;
         background-color: var(--background-black);
         color: #f3f3f3;
+    }
+
+    .login-submit[disabled] {
+        background-color: var(--light-grey);
+        color: var(--background-black);
+        cursor: not-allowed;
+    }
+
+    .login-submit-loading {
+        font-style: italic;
+    }
+
+    .login-form-load {
+        margin-left: 15px;
     }
 
     .login-to-register {
