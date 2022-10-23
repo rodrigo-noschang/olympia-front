@@ -49,15 +49,16 @@ const MealFoodContainer = styled.li`
         position: absolute;
         background-color: var(--light-grey);
         width: 100%;
-        height: 60px;
+        height: 100%;
         top: 0;
         left: 0;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .load {
-        text-align: center;
-        margin: 0 auto;
+        margin-left: 10px;
     }
 
     .new-meal-form-container {

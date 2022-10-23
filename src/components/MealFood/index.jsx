@@ -44,7 +44,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
     }
 
     const createNewFood = data => {
-        setLoadingNewFood(true);
+        setLoadingNewFood('Criando alimento...');
         const newFood = {...data, meal: Number(mealNumber)};
         reset();
 
@@ -67,7 +67,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
     }
 
     const editFood = data => {
-        setLoadingNewFood(true);
+        setLoadingNewFood('Atualizando...');
         
         api.patch(`/food/${food.id}`, data, {
             headers: {
@@ -88,7 +88,7 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
     }
 
     const deleteFood = () => {
-        setLoadingNewFood(true);
+        setLoadingNewFood('Excluindo Alimento...');
 
         api.delete(`/food/${food.id}`, {
             headers: {
@@ -126,8 +126,8 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                     positionDelta = {positionDelta} >
                     { loadingNewFood &&
                         <div className = 'create-food-load-container'>
+                            <span> { loadingNewFood } </span>
                             <ReactLoading className = 'load' type = 'bars' color = '#E54E47' height = {35} width = {35}/>
-                            Inserindo alimento...
                         </div>
                     }
 

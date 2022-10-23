@@ -42,6 +42,9 @@ const Dashboard = () => {
         addNewMeal();
         setLoadNewMeal(false);
     }
+    
+    console.log(mealsSeparation)
+
 
     return (
         <DashboardContainer>
