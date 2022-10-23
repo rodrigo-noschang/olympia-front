@@ -3,19 +3,25 @@ import MealTableContainer from "./style";
 import { useUserContext } from "../../Providers/UserProvider";
 import { HiTrash } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
+import ReactLoading from 'react-loading';
 
 const MealTable = ({ meal, mealNumber }) => {
     const newFoods = [];
-    const { removeMeal } = useUserContext();
+    const { removeMeal, removeMealLoad } = useUserContext();
 
     return (
         <MealTableContainer>
             <h2 className = 'meal-table-title'> 
                 Refeição {mealNumber} 
-                <span className = 'meal-table-header-close-desktop' onClick = {() => removeMeal(mealNumber)}>
-                    <HiTrash />     
-                </span>
-
+                { removeMealLoad ?
+                    <span className = 'meal-table-header-close-load-desktop'>
+                        <ReactLoading className = 'load' type = 'bars' color = '#E54E47' height = {35} width = {35}/>
+                    </span>
+                :
+                    <span className = 'meal-table-header-close-desktop' onClick = {() => removeMeal(mealNumber)}>
+                        <HiTrash />     
+                    </span>
+                }
                 <span className = 'meal-table-header-close-mobile' onClick = {() => removeMeal(mealNumber)}>
                     <AiFillCloseCircle />     
                 </span>

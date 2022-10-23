@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
     const [carbsTotalState, setCarbsTotalState] = useState(0);
     const [proteinTotalState, setProteinTotalState] = useState(0);
     const [fatTotalState, setFatTotalState] = useState(0);
+    const [removeMealLoad, setRemoveMealLoad] = useState(false);
     
     let totalCalories = carbsTotalState * 4 + proteinTotalState * 4 + fatTotalState * 9;
     
@@ -81,6 +82,7 @@ export const UserProvider = ({ children }) => {
     }
 
     const removeMeal = (mealNumber) => {
+        setRemoveMealLoad(true);
         mealNumber = Number(mealNumber);
         const meals = Object.keys(mealsSeparation);
 
@@ -100,12 +102,18 @@ export const UserProvider = ({ children }) => {
                 };
 
                 api.patch(`/food/${i + 1}`, newMeal)
-                .then(res => calculateMacros())
-                .catch(err => console.log(err))
+                .then(res => {
+                    calculateMacros()
+                })
+                .catch(err => {
+                    console.log(err)
+                })
             }
+            setRemoveMealLoad(false);
         })
         .catch(err => {
             console.log(err);
+            setRemoveMealLoad(false);
         })
     }
 
@@ -125,7 +133,8 @@ export const UserProvider = ({ children }) => {
             proteinTotalState,
             fatTotalState,
             totalCalories, 
-            bmr }}>
+            bmr, 
+            removeMealLoad }}>
             { children }
         </UserContext.Provider>
     )

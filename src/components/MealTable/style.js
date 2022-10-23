@@ -16,13 +16,17 @@ const MealTableContainer = styled.div`
         position: relative;
     }
 
-    .meal-table-header-close-desktop {
+    .meal-table-header-close-desktop, .meal-table-header-close-load-desktop {
         position: absolute;
         top: 50%;
         right: 15px;
         transform: translateY(-50%);
         cursor: pointer;
         display: none;
+    }
+
+    .meal-table-header-close-load-desktop {
+        display: inline;
     }
 
     .meal-table-title:hover .meal-table-header-close-desktop {
