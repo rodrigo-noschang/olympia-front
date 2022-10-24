@@ -8,6 +8,7 @@ import UserInfo from "../../components/UserInfo";
 import MealTable from "../../components/MealTable";
 import { useUserContext } from "../../Providers/UserProvider";
 import ReactLoading from 'react-loading';
+import Links from "../../components/Links";
 
 const Dashboard = () => {
     const {userId} = useParams();
@@ -79,6 +80,7 @@ const Dashboard = () => {
                         }
                         Adicionar Refeição 
                     </button>
+                    <Links />
                 </main>
 
             }

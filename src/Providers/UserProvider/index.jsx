@@ -92,6 +92,7 @@ export const UserProvider = ({ children }) => {
 
         delete mealsSeparation[meals.length];
         setMealsSeparation({...mealsSeparation});
+        calculateMacros();
 
 
         api.delete(`/food/${mealNumber}`)

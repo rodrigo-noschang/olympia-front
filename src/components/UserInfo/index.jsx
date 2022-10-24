@@ -41,7 +41,7 @@ const UserInfo = ({ user }) => {
                     </div>
 
                     <div className = 'user-info-consumed-calories-value'>
-                        {totalCalories} Kcal
+                        {totalCalories.toFixed(2)} Kcal
                     </div>
                 </div>
 
@@ -51,12 +51,12 @@ const UserInfo = ({ user }) => {
                     </div>
 
                     <div className = 'user-info-required-calories-value'>
-                        {bmr} Kcal
+                        {bmr.toFixed(2)} Kcal
                     </div>
                 </div>
 
                 <div className = 'user-info-calories-difference'> 
-                    Saldo Calórico: {totalCalories - bmr} Kcal
+                    Saldo Calórico: {(totalCalories - bmr).toFixed(2)} Kcal
                 </div>
             </section>
 
