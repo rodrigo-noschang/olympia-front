@@ -123,7 +123,8 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
             { emptyState ?
                 <MealFoodContainer onSubmit = {handleSubmit(createOrUpdateFood)} 
                     errors = {errors}
-                    positionDelta = {positionDelta} >
+                    positionDelta = {positionDelta} 
+                    emptyState = {emptyState} >
                     { loadingNewFood &&
                         <div className = 'create-food-load-container'>
                             <span> { loadingNewFood } </span>
@@ -171,12 +172,15 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                                 {...register('fat')}/>
                         </div>
 
-                        <button className = 'new-food-submit'></button>
+                        <button className = 'new-food-submit'> Adicionar Alimento </button>
                     </form>
                 </MealFoodContainer>
             :
                 <> 
-                    <MealFoodContainer errors = {errors} onMouseEnter = {showOptionsDesktop} onMouseLeave = {hideOptionsDesktop} >
+                    <MealFoodContainer errors = {errors} 
+                        onMouseEnter = {showOptionsDesktop} 
+                        onMouseLeave = {hideOptionsDesktop} 
+                        emptyState = {emptyState} >
                         <div className = 'meal-list-data food-name' title = {food.name}>
                             {food.name}
                         </div>

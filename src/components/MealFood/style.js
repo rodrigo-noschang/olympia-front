@@ -29,11 +29,9 @@ const invalidInputShake = keyframes`
 const MealFoodContainer = styled.li`
     display: flex;
     justify-content: space-between;
-    padding: 10px 5px;
     position: relative;
-    transform: ${props => props.positionDelta < 0 ? 'translateX(-50px)' : 'translateX(0)'};
-    transition: transform .3s ease-in;
     overflow-x: scroll;
+    padding: ${props => props.emptyState ? '10px 5px 40px' : '10px 5px'};
 
     &::-webkit-scrollbar {
         display: none;
@@ -55,6 +53,7 @@ const MealFoodContainer = styled.li`
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 2;
     }
 
     .load {
@@ -146,7 +145,32 @@ const MealFoodContainer = styled.li`
     }
 
     .new-food-submit {
-        display: none;
+        position: absolute;
+        left: 50%;
+        bottom: 8px;
+        transform: translateX(-50%);
+        z-index: 1;
+        font-size: 15px;
+        letter-spacing: 1.4px;
+        padding: 3px 7px;
+        background-color: var(--background-black);
+        color: var(--text-red);
+        border: none;
+        border-radius: 3px;
+    }
+
+    .new-food-submit:hover {
+        cursor: pointer;
+        background-color: #f3f3f3;
+        color: var(--background-black);
+        box-shadow: 0 0 3px 1px var(--background-black);
+        transition: .3s;
+    }
+
+    .new-food-submit:active {
+        box-shadow: 0 0 8px 1px #fff;
+        background-color: var(--background-black);
+        color: #f3f3f3;
     }
 
     .menu-icon-modal-container {
@@ -168,6 +192,10 @@ const MealFoodContainer = styled.li`
 
         .food-name-input {
             width: 100%;
+        }
+
+        .new-food-submit {
+            padding: 3px 15px;
         }
     }
 
