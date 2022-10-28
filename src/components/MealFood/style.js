@@ -222,7 +222,7 @@ const MealFoodOptionsMobile = styled.div`
         color: var(--background-black);
     }
 
-    @media only screen and (min-width: 1300px) {
+    @media only screen and (min-width: 1100px) {
         display: none;
     }
 `;
@@ -230,7 +230,7 @@ const MealFoodOptionsMobile = styled.div`
 const MealFoodOptionsDesktop = styled.div`
     display: none;
 
-    @media only screen and (min-width: 1300px) {
+    @media only screen and (min-width: 1100px) {
         display: flex;
         position: absolute;
         right: 10px;

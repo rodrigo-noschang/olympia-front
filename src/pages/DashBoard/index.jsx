@@ -9,6 +9,7 @@ import MealTable from "../../components/MealTable";
 import { useUserContext } from "../../Providers/UserProvider";
 import ReactLoading from 'react-loading';
 import Links from "../../components/Links";
+import jwt_decode from 'jwt-decode';
 
 const Dashboard = () => {
     const {userId} = useParams();
@@ -24,6 +25,10 @@ const Dashboard = () => {
         if (!token) {
             navigate('/');
         } else {
+            // check if id in token is the same as the one in url
+            const decodedToken = jwt_decode(token);
+            if (decodedToken.user_id !== userId) navigate('/');
+
             setLoadingUser(true);
             api.get(`/user/${userId}`)
             .then(res => {
