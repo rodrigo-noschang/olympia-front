@@ -181,6 +181,14 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                         onMouseEnter = {showOptionsDesktop} 
                         onMouseLeave = {hideOptionsDesktop} 
                         emptyState = {emptyState} >
+
+                        { loadingNewFood &&
+                            <div className = 'create-food-load-container'>
+                                <span> { loadingNewFood } </span>
+                                <ReactLoading className = 'load' type = 'bars' color = '#E54E47' height = {35} width = {35}/>
+                            </div>
+                        }
+
                         <div className = 'meal-list-data food-name' title = {food.name}>
                             {food.name}
                         </div>
