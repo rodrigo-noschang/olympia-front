@@ -1,3 +1,4 @@
+import { useState } from "react";
 import MealFood from "../MealFood";
 import MealTableContainer from "./style";
 import { useUserContext } from "../../Providers/UserProvider";
@@ -7,18 +8,24 @@ import ReactLoading from 'react-loading';
 
 const MealTable = ({ meal, mealNumber }) => {
     const newFoods = [];
-    const { removeMeal, removeMealLoad } = useUserContext();
+    const { removeMeal } = useUserContext();
+    const [localRemoveMealLoad, setLocalRemoveMealLoad] = useState(false);
+
+    const callRemoveMeal = () => {
+        setLocalRemoveMealLoad(true);
+        removeMeal(mealNumber, setLocalRemoveMealLoad);
+    }
 
     return (
         <MealTableContainer>
             <h2 className = 'meal-table-title'> 
                 Refeição {mealNumber} 
-                { removeMealLoad ?
+                { localRemoveMealLoad ?
                     <span className = 'meal-table-header-close-load-desktop'>
                         <ReactLoading className = 'load' type = 'bars' color = '#E54E47' height = {35} width = {35}/>
                     </span>
                 :
-                    <span className = 'meal-table-header-close-desktop' onClick = {() => removeMeal(mealNumber)}>
+                    <span className = 'meal-table-header-close-desktop' onClick = {callRemoveMeal}>
                         <HiTrash />     
                     </span>
                 }
