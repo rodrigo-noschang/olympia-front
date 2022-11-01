@@ -143,7 +143,6 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                         <div className = 'meal-list-data food-weight'>
                             <input placeholder = 'Pe' 
                                 className = 'meal-list-input food-weight-input'
-                                type = 'number'
                                 defaultValue = {food?.food_weight}
                                 {...register('food_weight')}/>
                         </div>
@@ -151,7 +150,6 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                         <div className = 'meal-list-data food-carb'>
                             <input placeholder = 'C' 
                                 className = 'meal-list-input food-carbs-input'
-                                type = 'number'
                                 defaultValue = {food?.carbs}
                                 {...register('carbs')}/>
                         </div>
@@ -159,7 +157,6 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                         <div className = 'meal-list-data food-protein'>
                             <input placeholder = 'P' 
                                 className = 'meal-list-input food-protein-input'
-                                type = 'number'
                                 defaultValue = {food?.protein}
                                 {...register('protein')}/>
                         </div>
@@ -167,7 +164,6 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                         <div className = 'meal-list-data food-fat'>
                             <input placeholder = 'G' 
                                 className = 'meal-list-input food-fat-input'
-                                type = 'number'
                                 defaultValue = {food?.fat}
                                 {...register('fat')}/>
                         </div>

@@ -30,12 +30,12 @@ const Links = () => {
                 </li>
             </ul>
             <p className = 'links-footer'> 
-                Independente da sua intenção, recomendo muito que busque conhecimento nas doces palavras deste 
-                grandioso mestre 
+                Qualquer que seja o propósito da sua dieta, recomendo fortemente que busque conhecimento nas doces palavras deste 
+                grandioso mestre,
                 <a className = 'twin' target = '_blank' rel = 'noreferrer' href = 'https://www.youtube.com/c/LeandroTwin'> 
                     Leandro Twin <BiLinkExternal />
-                </a>
-
+                </a>,
+                procurando <b> Leandro Twin + tema </b>!
             </p>
         </LinksContainer>
     )

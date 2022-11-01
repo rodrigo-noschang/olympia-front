@@ -14,7 +14,7 @@ const Register = ({ setRegisterSuccess, setRegisterFailMessage, setLoginFailMess
         password:        yup.string().required('Senha é obrigatório'),
         confirmPassword: yup.string().required('Confirme sua senha').oneOf([yup.ref('password'), null], 'Senhas precisam ser iguais'),
         gender:          yup.string().required('Informe seu gênero').min(1),
-        height:          yup.number().required(),
+        height:          yup.number().required('Informe sua altura'),
         weight:          yup.number().required('Informe seu peso'),
         age:             yup.number().required('Informe sua idade')
     })
@@ -155,7 +155,7 @@ const Register = ({ setRegisterSuccess, setRegisterFailMessage, setLoginFailMess
                         <label htmlFor = 'physical-height' className = 'register-form-label'>
                             Altura (cm)
                         </label>
-                        <input min = '0' type="number" 
+                        <input min = '0' 
                             placeholder = 'Sua altura' 
                             id = 'physical-height'
                             {...register('height')}/>
@@ -170,7 +170,7 @@ const Register = ({ setRegisterSuccess, setRegisterFailMessage, setLoginFailMess
                         <label htmlFor = 'physical-weight' className = 'register-form-label'>
                             Peso (Kg)
                         </label>
-                        <input min = '0' type="number" 
+                        <input min = '0' 
                             placeholder = 'Seu peso' 
                             id = 'physical-weight'
                             {...register('weight')}/>
@@ -185,7 +185,7 @@ const Register = ({ setRegisterSuccess, setRegisterFailMessage, setLoginFailMess
                         <label htmlFor = 'physical-age' className = 'register-form-label'>
                             Idade (anos)
                         </label>
-                        <input min = '0' type="number" 
+                        <input min = '0' 
                             placeholder = 'Sua idade' 
                             id = 'physical-age'
                             {...register('age')}/>
