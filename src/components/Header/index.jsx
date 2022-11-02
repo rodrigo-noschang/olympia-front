@@ -13,13 +13,13 @@ const Header = () => {
         navigate('/');
     }
 
-    useEffect(() => {
-        if (token) {
-            const { user_id } = jwt_decode(token)
+    // useEffect(() => {
+    //     if (token) {
+    //         const { user_id } = jwt_decode(token)
 
-            navigate(`/dashboard/${user_id}`)
-        }
-    }, [])
+    //         navigate(`/dashboard/${user_id}`)
+    //     }
+    // }, [])
 
     return (
         <HeaderContainer>

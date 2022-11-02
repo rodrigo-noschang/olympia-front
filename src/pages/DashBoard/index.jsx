@@ -13,7 +13,7 @@ import jwt_decode from 'jwt-decode';
 
 const Dashboard = () => {
     const {userId} = useParams();
-    const [loadingUser, setLoadingUser] = useState(false);
+    const [loadingUser, setLoadingUser] = useState(true);
     const [loadNewMeal, setLoadNewMeal] = useState(false);
     const [userNotFound, setUserNotFound] = useState(false);
     const { user, setUser, mealsSeparation, separateMeals, addNewMeal} = useUserContext();
@@ -42,7 +42,10 @@ const Dashboard = () => {
 
             // check if id in token is the same as the one in url
             const decodedToken = jwt_decode(token);
-            if (decodedToken.user_id !== userId) navigate('/');
+            if (decodedToken.user_id !== userId) {
+                localStorage.removeItem('diet-buddy:token');
+                navigate('/');
+            }
             checkTokenExpiration(decodedToken);
 
             api.get(`/user/${userId}`)
@@ -69,16 +72,16 @@ const Dashboard = () => {
     return (
         <DashboardContainer>
             <Header />
-            { loadingUser && 
+            { loadingUser ? 
                 <LoadingUser />
-            }
-            { !loadingUser && userNotFound ?
+
+            : userNotFound ?
                 <div className = 'dashboard-user-not-found-container'>
                     Usuário não encontrado...
                 </div>
                 :
                 <main className = 'dashboard-user-info-container'>
-                    {/* <UserInfo user = {user} /> */}
+                    <UserInfo user = {user} />
 
                     <section className = 'dashboard-table-container'>
                         { Object.keys(mealsSeparation).map((meal, index) => {
