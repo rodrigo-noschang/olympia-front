@@ -1,8 +1,12 @@
 import UserInfoContainer from "./style"
 import { useUserContext } from "../../Providers/UserProvider";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import UserEdit from "../UserEdit";
 
 const UserInfo = ({ user }) => {
+    const [edit, setEdit] = useState(false);
+    const [error, setError] = useState(false);
+
     const { calculateMacros, 
         carbsTotalState, 
         proteinTotalState, 
@@ -14,12 +18,51 @@ const UserInfo = ({ user }) => {
         calculateMacros();
     }, [])
 
+    const openEditor = () => {
+        setEdit(true);
+    }
+
+    const closeEditor = () => {
+        setEdit(false);
+    }
 
     return (
         <UserInfoContainer>
-            <h2 className = 'user-info-name'> 
-                Olá, {user.name} 
-            </h2>
+            <section className = 'user-info-container'>
+                <h2 className = 'user-info-name'> 
+                    Olá, {user.name.split(' ')[0]} 
+                </h2>
+                {!edit ?
+                    <>
+                        <div className = 'user-info-data-container'> 
+                            <div>
+                                <div className = 'user-info-label'> Altura (cm) </div>
+                                <div className = 'user-info-value'> {user.height} </div>
+                            </div>
+
+                            <div>
+                                <div className = 'user-info-label'> Peso (Kg) </div>
+                                <div className = 'user-info-value'> {user.weight.toFixed(1)} </div>
+                            </div>
+
+                            <div>
+                                <div className = 'user-info-label'> Idade </div>
+                                <div className = 'user-info-value'> {user.age} </div>
+                            </div>
+                        </div>
+                        <div className = 'user-info-update'>
+                            <span className = 'user-info-update-clickable' onClick = {openEditor}> 
+                                Atualizar dados 
+                            </span>
+                        </div>
+                        { error && 
+                            <div className = 'user-update-error-message'> Algo deu errado </div>
+                        }
+                    </>
+                    :
+                        <UserEdit user = {user} closeEditor = {closeEditor} setError = {setError}/>
+                    }
+            </section>
 
             <section className = 'user-info-macros-container'>
                 <div className = 'user-info-macros carbs'> 

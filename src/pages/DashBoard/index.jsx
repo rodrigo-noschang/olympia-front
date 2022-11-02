@@ -17,6 +17,18 @@ const Dashboard = () => {
     const [loadNewMeal, setLoadNewMeal] = useState(false);
     const { user, setUser, mealsSeparation, separateMeals, addNewMeal} = useUserContext();
     const navigate = useNavigate();
+
+    const checkTokenExpiration = (token) => {
+        const now = new Date().getTime();
+        const exp = new Date(token.expiration).getTime();
+        
+        const timeDiff = now - exp;
+
+        if (timeDiff > 0) {
+            localStorage.removeItem('diet-buddy:token');
+            navigate('/');
+        }
+    }
     
     
     useEffect(() => {
@@ -62,7 +74,7 @@ const Dashboard = () => {
                 </div>
                 :
                 <main className = 'dashboard-user-info-container'>
-                    <UserInfo user = {user}/>
+                    <UserInfo user = {user} />
 
                     <section className = 'dashboard-table-container'>
                         { Object.keys(mealsSeparation).map((meal, index) => {

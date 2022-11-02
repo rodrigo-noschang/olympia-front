@@ -6,10 +6,6 @@ const LinksContainer = styled.footer`
     border-top: 2px solid var(--text-red);
     padding-top: 10px;
 
-    .links-list {
-        /* padding-left: 20px; */
-    }
-
     .links-title {
         font-family: var(--text-font);
     }

@@ -4,13 +4,58 @@ const UserInfoContainer = styled.header`
     display: flex;
     flex-direction: column;    
 
+    .user-info-container {
+        width: 100%;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+
     .user-info-name {
         text-align: center;
         font-size: 30px;
     }
 
+    .user-info-data-container {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0 5px;
+    }
+
+    .user-info-update {
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .user-update-error-message {
+        font-size: 11px;
+        color: red;
+        text-align: center;
+        font-style: italic;
+    }
+
+    .user-info-update-clickable {
+        font-family: var(--text-font);
+        color: #4d4dbd;
+        cursor: pointer;
+        border-bottom: 1px solid transparent;
+    }
+
+    .user-info-update-clickable:hover {
+        border-bottom-color: #4d4dbd;
+        filter: brightness(1.2);
+        transition: .3s;
+    }
+
+    .user-info-label {
+        font-weight: bold;
+        margin-bottom: 7px;
+    }
+
+    .user-info-value {
+        text-align: center;
+    }
+
     .user-info-macros-container {
-        margin-top: 30px;
         font-size: 19px;
         align-self: center;
         width: 100%;
@@ -67,6 +112,10 @@ const UserInfoContainer = styled.header`
 
         .user-info-macros-container {
             margin-top: 0;
+        }
+
+        .user-info-container {
+            margin: 0;
         }
     }
 `;

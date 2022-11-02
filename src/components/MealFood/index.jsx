@@ -168,7 +168,14 @@ const MealFood = ({ empty, food, meal, mealNumber }) => {
                                 {...register('fat')}/>
                         </div>
 
-                        <button className = 'new-food-submit'> Adicionar Alimento </button>
+                        <button className = 'new-food-submit'> 
+                            {food ? 
+                                <> Editar Alimento </>
+                            :
+                                <> Criar Alimento </>
+                            } 
+                        
+                        </button>
                     </form>
                 </MealFoodContainer>
             :

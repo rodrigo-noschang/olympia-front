@@ -16,6 +16,7 @@ const Header = () => {
     useEffect(() => {
         if (token) {
             const { user_id } = jwt_decode(token)
+
             navigate(`/dashboard/${user_id}`)
         }
     }, [])
